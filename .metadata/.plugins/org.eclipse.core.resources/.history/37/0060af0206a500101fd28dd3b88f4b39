@@ -1,0 +1,113 @@
+#include "uart_driver.h"
+
+/* ----------------- Register Base Addresses ----------------- */
+#define PERIPH_BASE        (0x40000000UL)
+#define AHB2PERIPH_BASE    (PERIPH_BASE + 0x08000000UL)
+#define APB1PERIPH_BASE    (PERIPH_BASE + 0x00000000UL)
+
+/* RCC, GPIOA, USART2 Base Addresses */
+#define RCC_BASE           (AHB2PERIPH_BASE + 0x00000000UL - 0x08000000UL + 0x1000UL)
+#define GPIOA_BASE         (AHB2PERIPH_BASE + 0x0000UL)
+#define USART2_BASE        (APB1PERIPH_BASE + 0x4400UL)
+
+/* ----------------- Peripheral Register Structures ----------------- */
+typedef struct {
+    volatile uint32_t CR;
+    volatile uint32_t ICSCR;
+    volatile uint32_t CFGR;
+    volatile uint32_t PLLCFGR;
+    volatile uint32_t PLLSAI1CFGR;
+    volatile uint32_t CIER;
+    volatile uint32_t CIFR;
+    volatile uint32_t CICR;
+    volatile uint32_t AHB1RSTR;
+    volatile uint32_t AHB2RSTR;
+    volatile uint32_t AHB3RSTR;
+    uint32_t RESERVED0;
+    volatile uint32_t APB1RSTR1;
+    volatile uint32_t APB1RSTR2;
+    volatile uint32_t APB2RSTR;
+    uint32_t RESERVED1[2];
+    volatile uint32_t AHB1ENR;
+    volatile uint32_t AHB2ENR;
+    volatile uint32_t AHB3ENR;
+    uint32_t RESERVED2;
+    volatile uint32_t APB1ENR1;
+    volatile uint32_t APB1ENR2;
+    volatile uint32_t APB2ENR;
+} RCC_TypeDef;
+
+typedef struct {
+    volatile uint32_t MODER;
+    volatile uint32_t OTYPER;
+    volatile uint32_t OSPEEDR;
+    volatile uint32_t PUPDR;
+    volatile uint32_t IDR;
+    volatile uint32_t ODR;
+    volatile uint32_t BSRR;
+    volatile uint32_t LCKR;
+    volatile uint32_t AFRL;
+    volatile uint32_t AFRH;
+} GPIO_TypeDef;
+
+typedef struct {
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t CR3;
+    volatile uint32_t BRR;
+    volatile uint32_t GTPR;
+    volatile uint32_t RTOR;
+    volatile uint32_t RQR;
+    volatile uint32_t ISR;
+    volatile uint32_t ICR;
+    volatile uint32_t RDR;
+    volatile uint32_t TDR;
+} USART_TypeDef;
+
+/* ----------------- Peripheral Definitions ----------------- */
+#define RCC     ((RCC_TypeDef *) 0x40021000UL)
+#define GPIOA   ((GPIO_TypeDef *) GPIOA_BASE)
+#define USART2  ((USART_TypeDef *) USART2_BASE)
+
+/* ----------------- Bit Definitions ----------------- */
+#define RCC_AHB2ENR_GPIOAEN       (1U << 0)
+#define RCC_APB1ENR1_USART2EN     (1U << 17)
+
+#define USART_CR1_UE              (1U << 0)
+#define USART_CR1_TE              (1U << 3)
+#define USART_CR1_RE              (1U << 2)
+#define USART_ISR_TXE             (1U << 7)
+#define USART_ISR_TC              (1U << 6)
+#define USART_ISR_RXNE            (1U << 5)
+
+/* ----------------- Function Implementations ----------------- */
+void UART2_Init(void)
+{
+    /* Enable GPIOA and USART2 clocks */
+    RCC->AHB2ENR  |= RCC_AHB2ENR_GPIOAEN;
+    RCC->APB1ENR1 |= RCC_APB1ENR1_USART2EN;
+
+    /* Configure PA2 (TX) and PA3 (RX) as AF7 */
+    GPIOA->MODER &= ~((3U << 4) | (3U << 6));  // Clear mode bits
+    GPIOA->MODER |=  ((2U << 4) | (2U << 6));  // Alternate function
+    GPIOA->AFRL  |=  (7U << 8) | (7U << 12);   // AF7 for USART2
+
+    /* USART2 Configuration: 9600 baud @ 80MHz */
+    USART2->BRR = 0x1A0A;  // 9600 baud (approx)
+    USART2->CR1 = USART_CR1_TE | USART_CR1_RE | USART_CR1_UE;
+}
+
+void UART2_WriteChar(char c)
+{
+    while (!(USART2->ISR & USART_ISR_TXE));  // Wait until TXE=1
+    USART2->TDR = (uint8_t)c;
+    while (!(USART2->ISR & USART_ISR_TC));   // Wait for TC=1
+}
+
+void UART2_WriteString(const char *str)
+{
+    while (*str)
+    {
+        UART2_WriteChar(*str++);
+    }
+}

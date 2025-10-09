@@ -2,7 +2,7 @@
 <section name="Workbench">
 	<item key="LastUsedSourceTemplate" value="Default C source template"/>
 	<item key="LastUsedHeaderTemplate" value="Default C header template"/>
-	<item key="org.eclipse.cdt.utils.ui.controls.FileListControl" value="${ProjDirPath}/Drivers/CMSIS/Include"/>
+	<item key="org.eclipse.cdt.utils.ui.controls.FileListControl" value="${workspace_loc:/${ProjName}/Drivers/Inc}"/>
 	<section name="NewSourceFileCreationWizard.dialogBounds">
 		<item key="DIALOG_X_ORIGIN" value="619"/>
 		<item key="DIALOG_Y_ORIGIN" value="199"/>

@@ -1,0 +1,2 @@
+../Drivers/Src/stm32l4_spi_driver.c:3:6:SPI1_Init	4	static
+../Drivers/Src/stm32l4_spi_driver.c:20:9:SPI1_TransmitReceive	16	static
