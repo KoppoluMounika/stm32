@@ -1,4 +1,4 @@
-17:28:27 **** Incremental Build of configuration Debug for project 03_SPI_Driver ****
+17:41:09 **** Incremental Build of configuration Debug for project 03_SPI_Driver ****
 make -j4 all 
 arm-none-eabi-size  03_SPI_Driver.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  03_SPI_Driver.elf
 Finished building: default.size.stdout
  
 
-17:28:27 Build Finished. 0 errors, 0 warnings. (took 317ms)
+17:41:09 Build Finished. 0 errors, 0 warnings. (took 421ms)
 

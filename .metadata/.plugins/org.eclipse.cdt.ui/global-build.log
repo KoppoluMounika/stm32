@@ -1,7 +1,14 @@
-17:19:33 **** Incremental Build of configuration Debug for project 03_SPI_Driver ****
+17:40:49 **** Build of configuration Debug for project 03_SPI_Driver ****
 make -j4 all 
-arm-none-eabi-gcc "../Drivers/Src/stm32l4_spi_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/03/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32l4_spi_driver.d" -MT"Drivers/Src/stm32l4_spi_driver.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32l4_spi_driver.o"
-arm-none-eabi-gcc -o "03_SPI_Driver.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\03\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="03_SPI_Driver.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/03_SPI_Driver/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/03_SPI_Driver/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/03_SPI_Driver/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32l4_spi_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/03_SPI_Driver/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32l4_spi_driver.d" -MT"Drivers/Src/stm32l4_spi_driver.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32l4_spi_driver.o"
+../Src/main.c: In function 'main':
+../Src/main.c:26:13: warning: variable 'rx' set but not used [-Wunused-but-set-variable]
+   26 |     uint8_t rx;
+      |             ^~
+arm-none-eabi-gcc -o "03_SPI_Driver.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\03_SPI_Driver\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="03_SPI_Driver.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: 03_SPI_Driver.elf
  
 arm-none-eabi-size  03_SPI_Driver.elf 
@@ -12,21 +19,7 @@ Finished building: default.size.stdout
  
 Finished building: 03_SPI_Driver.list
  
-17:21:14 **** Incremental Build of configuration Debug for project 03_SPI_Driver ****
-make -j4 all 
-arm-none-eabi-size  03_SPI_Driver.elf 
-   text	   data	    bss	    dec	    hex	filename
-    892	      0	   1568	   2460	    99c	03_SPI_Driver.elf
-Finished building: default.size.stdout
- 
-17:23:04 **** Incremental Build of configuration Debug for project 03_SPI_Driver ****
-make -j4 all 
-arm-none-eabi-size  03_SPI_Driver.elf 
-   text	   data	    bss	    dec	    hex	filename
-    892	      0	   1568	   2460	    99c	03_SPI_Driver.elf
-Finished building: default.size.stdout
- 
-17:28:27 **** Incremental Build of configuration Debug for project 03_SPI_Driver ****
+17:41:09 **** Incremental Build of configuration Debug for project 03_SPI_Driver ****
 make -j4 all 
 arm-none-eabi-size  03_SPI_Driver.elf 
    text	   data	    bss	    dec	    hex	filename
