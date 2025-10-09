@@ -1,0 +1,21 @@
+15:21:04 **** Incremental Build of configuration Debug for project 02_GPIO_Driver ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -IDrivers/CMSIS/Device/ST/STM32L4xx/Include/ -IDrivers/Inc -IIDrivers/Inc -IIDrivers/STM32L4xx_HAL_Driver/Inc -IIDrivers/CMSIS/Include -IIDrivers/CMSIS/Device/ST/STM32L4xx/Include -IIInc -IDrivers/CMSIS/Include/ -IDrivers/STM32L4xx_HAL_Driver/Inc/ -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include/ -I../Drivers/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32l4_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -IDrivers/CMSIS/Device/ST/STM32L4xx/Include/ -IDrivers/Inc -IIDrivers/Inc -IIDrivers/STM32L4xx_HAL_Driver/Inc -IIDrivers/CMSIS/Include -IIDrivers/CMSIS/Device/ST/STM32L4xx/Include -IIInc -IDrivers/CMSIS/Include/ -IDrivers/STM32L4xx_HAL_Driver/Inc/ -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include/ -I../Drivers/Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32l4_gpio_driver.d" -MT"Drivers/Src/stm32l4_gpio_driver.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32l4_gpio_driver.o"
+In file included from ../Src/main.c:18:
+../Drivers/Inc/stm32l4_gpio_driver.h:4:10: fatal error: stm32l4xx.h: No such file or directory
+    4 | #include "stm32l4xx.h"  // CMSIS header
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+In file included from ../Drivers/Src/stm32l4_gpio_driver.c:1:
+../Drivers/Inc/stm32l4_gpio_driver.h:4:10: fatal error: stm32l4xx.h: No such file or directory
+    4 | #include "stm32l4xx.h"  // CMSIS header
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+make: *** [Src/subdir.mk:25: Src/main.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [Drivers/Src/subdir.mk:19: Drivers/Src/stm32l4_gpio_driver.o] Error 1
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+
+15:21:04 Build Failed. 5 errors, 0 warnings. (took 278ms)
+
