@@ -1,0 +1,5 @@
+../Src/main.c:33:6:SPI2_GPIOInits	1
+../Src/main.c:62:6:SPI2_Inits	1
+../Src/main.c:75:5:main	3
+../Src/main.c:98:6:SPI_ApplicationEventCallback	4
+../Src/main.c:116:6:SPI2_IRQHandler	1

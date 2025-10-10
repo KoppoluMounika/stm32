@@ -1,0 +1,17 @@
+../Drivers/Src/stm32_spi_interrupt.c:4:6:SPI_PeriClockControl	5
+../Drivers/Src/stm32_spi_interrupt.c:20:6:SPI_Init	5
+../Drivers/Src/stm32_spi_interrupt.c:61:6:SPI_DeInit	4
+../Drivers/Src/stm32_spi_interrupt.c:72:9:SPI_GetFlagStatus	2
+../Drivers/Src/stm32_spi_interrupt.c:81:6:SPI_SendData	5
+../Drivers/Src/stm32_spi_interrupt.c:106:6:SPI_RecieveData	4
+../Drivers/Src/stm32_spi_interrupt.c:125:6:SPI_TransmitReceive	4
+../Drivers/Src/stm32_spi_interrupt.c:148:6:SPI_PeripheralControl	2
+../Drivers/Src/stm32_spi_interrupt.c:160:7:SPI_SSOEConfig	2
+../Drivers/Src/stm32_spi_interrupt.c:173:9:SPI_SendData_IT	2
+../Drivers/Src/stm32_spi_interrupt.c:191:9:SPI_ReceiveData_IT	2
+../Drivers/Src/stm32_spi_interrupt.c:207:9:SPI_TransmitReceive_IT	2
+../Drivers/Src/stm32_spi_interrupt.c:257:6:spi_txe_IT_handle	5
+../Drivers/Src/stm32_spi_interrupt.c:280:6:spi_rxe_IT_handle	3
+../Drivers/Src/stm32_spi_interrupt.c:297:6:SPI_IRQ_interrupt_Config	8
+../Drivers/Src/stm32_spi_interrupt.c:320:6:SPI_IRQ_priority_Config	1
+../Drivers/Src/stm32_spi_interrupt.c:377:6:SPI_IRQHandling	5

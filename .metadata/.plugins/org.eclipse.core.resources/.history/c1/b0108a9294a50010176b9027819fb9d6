@@ -1,0 +1,40 @@
+#include "stm32_spi_interrupt.h"
+
+volatile uint8_t received_data = 0;
+
+void SPI1_Init(void) {
+    // Enable clocks
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+    RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
+
+    // Configure PA5=SCK, PA6=MISO, PA7=MOSI as AF5
+    GPIOA->MODER &= ~((3<<10)|(3<<12)|(3<<14));
+    GPIOA->MODER |=  ((2<<10)|(2<<12)|(2<<14)); // AF mode
+    GPIOA->AFR[0] &= ~((0xF<<20)|(0xF<<24)|(0xF<<28));
+    GPIOA->AFR[0] |=  ((GPIO_AF5_SPI1<<20)|(GPIO_AF5_SPI1<<24)|(GPIO_AF5_SPI1<<28));
+
+    // SPI1: Master, SSM, SSI, Enable
+    SPI1->CR1 = SPI_CR1_MSTR | SPI_CR1_SSM | SPI_CR1_SSI | SPI_CR1_SPE;
+    SPI1->CR2 = SPI_CR2_RXNEIE;
+
+    // Enable SPI1 IRQ in NVIC
+    NVIC_ISER0[0] |= (1<<35);  // SPI1 IRQ number
+}
+
+uint8_t SPI1_TransmitReceive(uint8_t data) {
+    SPI1->DR = data;
+    while (!(SPI1->SR & SPI_SR_RXNE));
+    return SPI1->DR;
+}
+
+void SPI1_EnableInterrupt(void) {
+    SPI1->CR2 |= SPI_CR2_RXNEIE;
+}
+
+// SPI1 interrupt handler
+void SPI1_IRQHandler(void) {
+    if (SPI1->SR & SPI_SR_RXNE) {
+        received_data = SPI1->DR;
+        GPIOA->ODR ^= (1<<5); // Toggle onboard LED
+    }
+}
