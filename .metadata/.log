@@ -1309,3 +1309,9 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2025-10-13 17:32:40.300
 !MESSAGE Indexed '08_UART_Driver' (4 sources, 60 headers) in 0.497 sec: 2,463 declarations; 3,953 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.031%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-10-13 17:58:34.835
+!MESSAGE Indexed '09_UART_Interrupt' (2 sources, 0 headers) in 0.056 sec: 65 declarations; 57 references; 10 unresolved inclusions; 0 syntax errors; 31 unresolved names (20%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-10-13 18:04:16.741
+!MESSAGE Indexed '09_UART_Interrupt' (3 sources, 53 headers) in 0.267 sec: 1,954 declarations; 2,863 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.042%)

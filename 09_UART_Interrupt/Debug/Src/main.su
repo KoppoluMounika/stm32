@@ -1,0 +1,6 @@
+../Src/main.c:37:6:delay	24	static
+../Src/main.c:44:6:UART_GPIOInits	24	static
+../Src/main.c:65:6:uart_init	8	static
+../Src/main.c:78:5:main	16	static
+../Src/main.c:103:6:USART1_IRQHandler	8	static
+../Src/main.c:109:6:USART_ApplicationEventCallback	16	static

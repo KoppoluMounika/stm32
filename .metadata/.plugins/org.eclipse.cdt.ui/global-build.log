@@ -1,36 +1,43 @@
-17:32:53 **** Build of configuration Debug for project 08_UART_Driver ****
+18:04:22 **** Build of configuration Debug for project 09_UART_Interrupt ****
 make -j4 all 
 arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32l476rgtx.d" -MT"Startup/startup_stm32l476rgtx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Startup/startup_stm32l476rgtx.o" "../Startup/startup_stm32l476rgtx.s"
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Src" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Inc" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Src" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Inc" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
-arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Src" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Inc" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
-arm-none-eabi-gcc "../Drivers/Src/stm32l4xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Src" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Inc" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32l4xx_gpio_driver.d" -MT"Drivers/Src/stm32l4xx_gpio_driver.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32l4xx_gpio_driver.o"
-arm-none-eabi-gcc "../Drivers/Src/stm32l4xx_uart_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Src" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Inc" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/08_UART_Driver/Drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32l4xx_uart_driver.d" -MT"Drivers/Src/stm32l4xx_uart_driver.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32l4xx_uart_driver.o"
-../Drivers/Src/stm32l4xx_uart_driver.c:233:17: warning: 'RCC_GetPCLKFreq' defined but not used [-Wunused-function]
-  233 | static uint32_t RCC_GetPCLKFreq(USART_TypeDef *pUSARTx)
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers/Inc" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers/Inc" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers/Inc" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32l4xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers/Inc" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32l4xx_gpio_driver.d" -MT"Drivers/Src/stm32l4xx_gpio_driver.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32l4xx_gpio_driver.o"
+arm-none-eabi-gcc "../Drivers/Src/stm32l4xx_uart_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers/Inc" -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/09_UART_Interrupt/Drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Src/stm32l4xx_uart_driver.d" -MT"Drivers/Src/stm32l4xx_uart_driver.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Src/stm32l4xx_uart_driver.o"
+../Drivers/Src/stm32l4xx_uart_driver.c:234:17: warning: 'RCC_GetPCLKFreq' defined but not used [-Wunused-function]
+  234 | static uint32_t RCC_GetPCLKFreq(USART_TypeDef *pUSARTx)
       |                 ^~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "08_UART_Driver.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\08_UART_Driver\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="08_UART_Driver.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 08_UART_Driver.elf
+arm-none-eabi-gcc -o "09_UART_Interrupt.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\09_UART_Interrupt\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="09_UART_Interrupt.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 09_UART_Interrupt.elf
  
-arm-none-eabi-size  08_UART_Driver.elf 
-arm-none-eabi-objdump -h -S 08_UART_Driver.elf  > "08_UART_Driver.list"
+arm-none-eabi-size  09_UART_Interrupt.elf 
+arm-none-eabi-objdump -h -S 09_UART_Interrupt.elf  > "09_UART_Interrupt.list"
    text	   data	    bss	    dec	    hex	filename
-   3164	     20	   1636	   4820	   12d4	08_UART_Driver.elf
+   3828	     36	   1636	   5500	   157c	09_UART_Interrupt.elf
 Finished building: default.size.stdout
  
-Finished building: 08_UART_Driver.list
+Finished building: 09_UART_Interrupt.list
  
-17:33:23 **** Incremental Build of configuration Debug for project 08_UART_Driver ****
+18:04:45 **** Incremental Build of configuration Debug for project 09_UART_Interrupt ****
 make -j4 all 
-arm-none-eabi-size  08_UART_Driver.elf 
+arm-none-eabi-size  09_UART_Interrupt.elf 
    text	   data	    bss	    dec	    hex	filename
-   3164	     20	   1636	   4820	   12d4	08_UART_Driver.elf
+   3828	     36	   1636	   5500	   157c	09_UART_Interrupt.elf
 Finished building: default.size.stdout
  
-17:35:46 **** Incremental Build of configuration Debug for project 08_UART_Driver ****
+18:05:19 **** Incremental Build of configuration Debug for project 09_UART_Interrupt ****
 make -j4 all 
-arm-none-eabi-size  08_UART_Driver.elf 
+arm-none-eabi-size  09_UART_Interrupt.elf 
    text	   data	    bss	    dec	    hex	filename
-   3164	     20	   1636	   4820	   12d4	08_UART_Driver.elf
+   3828	     36	   1636	   5500	   157c	09_UART_Interrupt.elf
+Finished building: default.size.stdout
+ 
+18:10:49 **** Incremental Build of configuration Debug for project 09_UART_Interrupt ****
+make -j4 all 
+arm-none-eabi-size  09_UART_Interrupt.elf 
+   text	   data	    bss	    dec	    hex	filename
+   3828	     36	   1636	   5500	   157c	09_UART_Interrupt.elf
 Finished building: default.size.stdout
  
