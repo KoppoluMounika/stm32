@@ -1,0 +1,13 @@
+/*
+ * i2c_driver.h
+ *
+ *  Created on: Oct 13, 2025
+ *      Author: KOPPOLU MOUNIKA
+ */
+
+#ifndef INC_I2C_DRIVER_H_
+#define INC_I2C_DRIVER_H_
+
+
+
+#endif /* INC_I2C_DRIVER_H_ */

@@ -1,10 +1,17 @@
-14:58:24 **** Incremental Build of configuration Debug for project 05_GPIO_Interrupt ****
+15:35:27 **** Incremental Build of configuration Debug for project 05_GPIO_Interrupt ****
 make -j4 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/Users/KOPPOLU MOUNIKA/OneDrive - BITSILICA Pvt. Ltd/Desktop/stm32/05_GPIO_Interrupt/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc -o "05_GPIO_Interrupt.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\05_GPIO_Interrupt\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="05_GPIO_Interrupt.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 05_GPIO_Interrupt.elf
+ 
 arm-none-eabi-size  05_GPIO_Interrupt.elf 
+arm-none-eabi-objdump -h -S 05_GPIO_Interrupt.elf  > "05_GPIO_Interrupt.list"
    text	   data	    bss	    dec	    hex	filename
    2164	      0	   1568	   3732	    e94	05_GPIO_Interrupt.elf
 Finished building: default.size.stdout
  
+Finished building: 05_GPIO_Interrupt.list
+ 
 
-14:58:24 Build Finished. 0 errors, 0 warnings. (took 294ms)
+15:35:29 Build Finished. 0 errors, 0 warnings. (took 1s.693ms)
 
