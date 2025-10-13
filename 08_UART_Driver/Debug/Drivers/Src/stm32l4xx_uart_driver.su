@@ -1,0 +1,15 @@
+../Drivers/Src/stm32l4xx_uart_driver.c:9:6:USART_PeriClockControl	16	static
+../Drivers/Src/stm32l4xx_uart_driver.c:42:6:USART_Init	24	static
+../Drivers/Src/stm32l4xx_uart_driver.c:142:6:USART_DeInit	16	static
+../Drivers/Src/stm32l4xx_uart_driver.c:156:6:USART_SendData	24	static
+../Drivers/Src/stm32l4xx_uart_driver.c:172:6:USART_ReceiveData	24	static
+../Drivers/Src/stm32l4xx_uart_driver.c:188:6:USART_SendReceive	24	static
+../Drivers/Src/stm32l4xx_uart_driver.c:212:9:USART_GetFlagStatus	16	static
+../Drivers/Src/stm32l4xx_uart_driver.c:218:6:USART_ClearFlag	16	static
+../Drivers/Src/stm32l4xx_uart_driver.c:222:6:USART_PeripheralControl	16	static
+../Drivers/Src/stm32l4xx_uart_driver.c:233:17:RCC_GetPCLKFreq	40	static
+../Drivers/Src/stm32l4xx_uart_driver.c:283:6:USART_SetBaudRate	24	static
+../Drivers/Src/stm32l4xx_uart_driver.c:298:9:USART_SendDataIT	24	static
+../Drivers/Src/stm32l4xx_uart_driver.c:314:9:USART_ReceiveDataIT	24	static
+../Drivers/Src/stm32l4xx_uart_driver.c:332:6:USART_IRQConfig	24	static
+../Drivers/Src/stm32l4xx_uart_driver.c:359:6:USART_IRQHandling	24	static

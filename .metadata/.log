@@ -1300,3 +1300,12 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2025-10-13 15:28:17.459
 !MESSAGE Indexed '07_I2C_Interrupt' (5 sources, 59 headers) in 0.444 sec: 2,499 declarations; 4,459 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.029%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-10-13 17:21:09.800
+!MESSAGE Indexed '08_UART_Driver' (2 sources, 53 headers) in 0.716 sec: 1,952 declarations; 2,861 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.042%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-10-13 17:29:16.120
+!MESSAGE Indexed '08_UART_Driver' (4 sources, 60 headers) in 0.444 sec: 2,463 declarations; 3,953 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.031%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-10-13 17:32:40.300
+!MESSAGE Indexed '08_UART_Driver' (4 sources, 60 headers) in 0.497 sec: 2,463 declarations; 3,953 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.031%)
