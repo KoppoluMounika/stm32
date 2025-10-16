@@ -1,0 +1,128 @@
+/*
+ * lcd.c
+ *
+ *  Created on: Oct 15, 2025
+ *      Author: KOPPOLU MOUNIKA
+ */
+
+#include "lcd.h"
+#include "stm32l4xx_gpio_driver.h"
+
+static void write_4_bits(uint8_t value);
+static void lcd_enable(void);
+static void mdelay(uint32_t cnt);
+static void udelay(uint32_t cnt);
+
+void lcd_print_char(uint8_t data)
+{
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_RS, GPIO_PIN_SET);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_RW, GPIO_PIN_RESET);
+
+    write_4_bits(data >> 4);
+    write_4_bits(data & 0x0F);
+}
+
+void lcd_send_command(uint8_t cmd)
+{
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_RS, GPIO_PIN_RESET);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_RW, GPIO_PIN_RESET);
+
+    write_4_bits(cmd >> 4);
+    write_4_bits(cmd & 0x0F);
+}
+
+void lcd_print_string(char *message)
+{
+    while (*message)
+    {
+        lcd_print_char((uint8_t)*message++);
+    }
+}
+
+void lcd_init(void)
+{
+    GPIO_Handle_t lcd_signal;
+    lcd_signal.pGPIOx = LCD_GPIO_PORT;
+    lcd_signal.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
+    lcd_signal.GPIO_PinConfig.GPIO_PinOPType = GPIO_OP_TYPE_PP;
+    lcd_signal.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+    lcd_signal.GPIO_PinConfig.GPIO_PinSpeed = GPIO_HIGH_SPEED;
+
+    // Initialize all LCD pins
+    uint8_t pins[] = {LCD_GPIO_RS, LCD_GPIO_RW, LCD_GPIO_EN,
+                      LCD_GPIO_D4, LCD_GPIO_D5, LCD_GPIO_D6, LCD_GPIO_D7};
+
+    for (int i = 0; i < 7; i++)
+    {
+        lcd_signal.GPIO_PinConfig.GPIO_PinNumber = pins[i];
+        GPIO_Init(&lcd_signal);
+        GPIO_WriteToOutputPin(LCD_GPIO_PORT, pins[i], GPIO_PIN_RESET);
+    }
+
+    mdelay(40);
+
+    write_4_bits(0x3);
+    mdelay(5);
+    write_4_bits(0x3);
+    udelay(150);
+    write_4_bits(0x3);
+    write_4_bits(0x2);
+
+    lcd_send_command(LCD_CMD_4DL_2N_5X8F);
+    lcd_send_command(LCD_CMD_DON_CURON);
+    lcd_display_clear();
+    lcd_send_command(LCD_CMD_INCADD);
+}
+
+void lcd_display_clear(void)
+{
+    lcd_send_command(LCD_CMD_DIS_CLEAR);
+    mdelay(2);
+}
+
+void lcd_display_return_home(void)
+{
+    lcd_send_command(LCD_CMD_DIS_RETURN_HOME);
+    mdelay(2);
+}
+
+void lcd_set_cursor(uint8_t row, uint8_t column)
+{
+    uint8_t address;
+    if (row == 1)
+        address = 0x80 + (column - 1);
+    else if (row == 2)
+        address = 0xC0 + (column - 1);
+    else
+        return;
+
+    lcd_send_command(address);
+}
+
+static void write_4_bits(uint8_t value)
+{
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_D4, ((value >> 0) & 0x1));
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_D5, ((value >> 1) & 0x1));
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_D6, ((value >> 2) & 0x1));
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_D7, ((value >> 3) & 0x1));
+
+    lcd_enable();
+}
+
+static void lcd_enable(void)
+{
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_EN, GPIO_PIN_SET);
+    udelay(10);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, LCD_GPIO_EN, GPIO_PIN_RESET);
+    udelay(100);
+}
+
+static void mdelay(uint32_t cnt)
+{
+    for (uint32_t i = 0; i < (cnt * 1000); i++);
+}
+
+static void udelay(uint32_t cnt)
+{
+    for (uint32_t i = 0; i < cnt; i++);
+}

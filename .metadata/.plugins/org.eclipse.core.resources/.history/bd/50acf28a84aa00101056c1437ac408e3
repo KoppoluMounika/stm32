@@ -1,0 +1,50 @@
+/*
+ * ultrasonic.c
+ *
+ *  Created on: Oct 16, 2025
+ *      Author: KOPPOLU MOUNIKA
+ */
+#include "ultrasonic.h"
+
+/* Pins for HC-SR04 */
+#define TRIG_PIN  (1<<5)  // PB5
+#define ECHO_PIN  (1<<4)  // PB4
+
+void delay_us(uint32_t us)
+{
+    uint32_t cycles = us * (SYSTEM_CORE_CLOCK / 1000000UL) / 5; // rough approx
+    for(uint32_t i=0; i<cycles; i++) __asm__("nop");
+}
+
+void Ultrasonic_Init(void)
+{
+    /* Enable GPIOB clock */
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
+
+    /* TRIG PB5 output */
+    GPIOB->MODER &= ~(0x3 << (4*2)); // clear
+    GPIOB->MODER |=  (0x1 << (5*2)); // output
+
+    /* ECHO PB4 input */
+    GPIOB->MODER &= ~(0x3 << (4*2));
+}
+
+uint32_t Measure_Distance_cm(void)
+{
+    /* Trigger 10us pulse */
+    GPIOB->ODR |= TRIG_PIN;
+    delay_us(10);
+    GPIOB->ODR &= ~TRIG_PIN;
+
+    /* Wait for echo start */
+    while(!(GPIOB->IDR & ECHO_PIN));
+    uint32_t start = SysTick->VAL;
+
+    /* Wait for echo end */
+    while(GPIOB->IDR & ECHO_PIN);
+    uint32_t stop = SysTick->VAL;
+
+    uint32_t duration = (start - stop) & 0xFFFFFF; // handle wrap
+    uint32_t distance = duration * 340UL / (2*10000UL); // approximate cm
+    return distance;
+}

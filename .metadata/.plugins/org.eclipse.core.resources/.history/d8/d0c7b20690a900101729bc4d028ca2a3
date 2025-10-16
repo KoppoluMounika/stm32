@@ -1,0 +1,53 @@
+#include "stm32l4xx_gpio_driver.h"
+
+#define GPIO_PIN_SET   1
+#define GPIO_PIN_RESET 0
+#define GPIO_MODE_OUT  1
+#define GPIO_OP_TYPE_PP 0
+#define GPIO_NO_PUPD   0
+#define GPIO_HIGH_SPEED 2
+
+// Enable GPIOA clock (needed for LCD)
+void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
+{
+    if(pGPIOx == GPIOA && EnorDi)
+    {
+        RCC->AHB2ENR |= (1 << 0); // Enable GPIOA clock
+    }
+}
+
+// Initialize GPIO pin (only output needed)
+void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
+{
+    uint32_t pin = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
+
+    // Set mode
+    pGPIOHandle->pGPIOx->MODER &= ~(0x3 << (2 * pin));
+    pGPIOHandle->pGPIOx->MODER |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 * pin));
+
+    // Output type
+    pGPIOHandle->pGPIOx->OTYPER &= ~(0x1 << pin);
+    pGPIOHandle->pGPIOx->OTYPER |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinOPType << pin);
+
+    // Speed
+    pGPIOHandle->pGPIOx->OSPEEDR &= ~(0x3 << (2 * pin));
+    pGPIOHandle->pGPIOx->OSPEEDR |= (GPIO_HIGH_SPEED << (2 * pin));
+
+    // No pull-up/pull-down
+    pGPIOHandle->pGPIOx->PUPDR &= ~(0x3 << (2 * pin));
+}
+
+// Write to GPIO pin
+void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t pin, uint8_t value)
+{
+    if(value == GPIO_PIN_SET)
+        pGPIOx->ODR |= (1 << pin);
+    else
+        pGPIOx->ODR &= ~(1 << pin);
+}
+
+// Toggle GPIO pin
+void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t pin)
+{
+    pGPIOx->ODR ^= (1 << pin);
+}

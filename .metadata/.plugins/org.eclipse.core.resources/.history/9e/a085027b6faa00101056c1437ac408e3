@@ -1,0 +1,27 @@
+/*
+ * lcd.h
+ *
+ *  Created on: Oct 16, 2025
+ *      Author: KOPPOLU MOUNIKA
+ */
+
+#ifndef LCD_H
+#define LCD_H
+
+#include "stm32l4xx_hal.h"
+
+// Initialize LCD with custom pins
+void LCD_Init(GPIO_TypeDef* RS_PORT, uint16_t RS_PIN,
+              GPIO_TypeDef* EN_PORT, uint16_t EN_PIN,
+              GPIO_TypeDef* D4_PORT, uint16_t D4_PIN,
+              GPIO_TypeDef* D5_PORT, uint16_t D5_PIN,
+              GPIO_TypeDef* D6_PORT, uint16_t D6_PIN,
+              GPIO_TypeDef* D7_PORT, uint16_t D7_PIN);
+
+// Basic LCD functions
+void LCD_Clear(void);
+void LCD_SetCursor(uint8_t row, uint8_t col);
+void LCD_Print(char *str);
+
+#endif
+

@@ -1,0 +1,45 @@
+/*
+ * stm32l4xx.h
+ *
+ *  Created on: Oct 15, 2025
+ *      Author: KOPPOLU MOUNIKA
+ */
+
+#ifndef STM32L4XX_H
+#define STM32L4XX_H
+
+#include <stdint.h>
+
+#define __IO volatile
+
+// GPIO base addresses
+#define GPIOA_BASE 0x48000000U
+#define GPIOB_BASE 0x48000400U
+#define GPIOC_BASE 0x48000800U
+#define GPIOD_BASE 0x48000C00U
+#define GPIOE_BASE 0x48001000U
+#define GPIOH_BASE 0x48001C00U
+
+// GPIO peripheral structure
+typedef struct
+{
+    __IO uint32_t MODER;
+    __IO uint32_t OTYPER;
+    __IO uint32_t OSPEEDR;
+    __IO uint32_t PUPDR;
+    __IO uint32_t IDR;
+    __IO uint32_t ODR;
+    __IO uint32_t BSRR;
+    __IO uint32_t LCKR;
+    __IO uint32_t AFR[2];
+} GPIO_RegDef_t;
+
+// GPIO peripheral definitions
+#define GPIOA ((GPIO_RegDef_t*)GPIOA_BASE)
+#define GPIOB ((GPIO_RegDef_t*)GPIOB_BASE)
+#define GPIOC ((GPIO_RegDef_t*)GPIOC_BASE)
+#define GPIOD ((GPIO_RegDef_t*)GPIOD_BASE)
+#define GPIOE ((GPIO_RegDef_t*)GPIOE_BASE)
+#define GPIOH ((GPIO_RegDef_t*)GPIOH_BASE)
+
+#endif /* STM32L4XX_H */

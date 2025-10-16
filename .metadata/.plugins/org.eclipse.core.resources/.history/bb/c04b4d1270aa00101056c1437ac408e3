@@ -1,0 +1,48 @@
+/*
+ * ultrasonic.c
+ *
+ *  Created on: Oct 16, 2025
+ *      Author: KOPPOLU MOUNIKA
+ */
+#include "ultrasonic.h"
+#include "stm32l476xx.h"
+
+void delay_us(uint32_t us)
+{
+    uint32_t cycles = us * (SystemCoreClock / 1000000);
+    for(volatile uint32_t i=0;i<cycles;i++);
+}
+
+void Ultrasonic_Init(void)
+{
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOBEN;
+
+    // TRIG output
+    GPIOB->MODER &= ~((3U<<10)); // PB5
+    GPIOB->MODER |= (1U<<10);
+
+    // ECHO input
+    GPIOB->MODER &= ~((3U<<8)); // PB4 input
+}
+
+uint32_t Measure_Distance_cm(void)
+{
+    // Trigger 10us pulse
+    GPIOB->ODR |= TRIG_PIN;
+    delay_us(10);
+    GPIOB->ODR &= ~TRIG_PIN;
+
+    // Wait for echo start
+    while(!(GPIOB->IDR & ECHO_PIN));
+    uint32_t start = SysTick->VAL;
+
+    // Wait for echo end
+    while(GPIOB->IDR & ECHO_PIN);
+    uint32_t stop = SysTick->VAL;
+
+    uint32_t duration = start - stop;
+    uint32_t distance = duration * 1.0f / 58; // rough approximation
+    return distance;
+}
+
+

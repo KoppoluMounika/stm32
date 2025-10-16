@@ -41,13 +41,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  18 .debug_line   00000f62  00000000  00000000  00004c30  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    00009cd0  00000000  00000000  00005b92  2**0
+ 19 .debug_str    00009ccf  00000000  00000000  00005b92  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      00000043  00000000  00000000  0000f862  2**0
+ 20 .comment      00000043  00000000  00000000  0000f861  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  000001e8  00000000  00000000  0000f8a8  2**2
+ 21 .debug_frame  000001e8  00000000  00000000  0000f8a4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 00000080  00000000  00000000  0000fa90  2**0
+ 22 .debug_line_str 00000080  00000000  00000000  0000fa8c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -798,7 +798,7 @@ void GPIO_IRQHandling(uint8_t GPIO_PinNumber)
 080006c4 <delay>:
 #define HIGH 1
 #define LOW  0
-#define BTN_PRESSED HIGH
+#define BTN_PRESSED LOW
 
 void delay(void)
 {

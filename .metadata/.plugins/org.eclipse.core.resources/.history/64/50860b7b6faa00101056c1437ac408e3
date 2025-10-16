@@ -1,0 +1,106 @@
+/*
+ * lcd.c
+ *
+ *  Created on: Oct 16, 2025
+ *      Author: KOPPOLU MOUNIKA
+ */
+
+
+#include "lcd.h"
+#include <string.h>
+#include <util/delay.h> // Use HAL_Delay if on STM32, or write microsecond delay
+
+// LCD pin variables
+GPIO_TypeDef *LCD_RS_PORT, *LCD_EN_PORT;
+GPIO_TypeDef *LCD_D4_PORT, *LCD_D5_PORT, *LCD_D6_PORT, *LCD_D7_PORT;
+uint16_t LCD_RS_PIN, LCD_EN_PIN;
+uint16_t LCD_D4_PIN, LCD_D5_PIN, LCD_D6_PIN, LCD_D7_PIN;
+
+void LCD_PulseEnable(void)
+{
+    HAL_GPIO_WritePin(LCD_EN_PORT, LCD_EN_PIN, GPIO_PIN_SET);
+    HAL_Delay(1);
+    HAL_GPIO_WritePin(LCD_EN_PORT, LCD_EN_PIN, GPIO_PIN_RESET);
+    HAL_Delay(1);
+}
+
+void LCD_SendNibble(uint8_t nibble)
+{
+    HAL_GPIO_WritePin(LCD_D4_PORT, LCD_D4_PIN, (nibble & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LCD_D5_PORT, LCD_D5_PIN, (nibble & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LCD_D6_PORT, LCD_D6_PIN, (nibble & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LCD_D7_PORT, LCD_D7_PIN, (nibble & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    LCD_PulseEnable();
+}
+
+void LCD_SendByte(uint8_t data, uint8_t rs)
+{
+    HAL_GPIO_WritePin(LCD_RS_PORT, LCD_RS_PIN, rs ? GPIO_PIN_SET : GPIO_PIN_RESET);
+    LCD_SendNibble(data >> 4);
+    LCD_SendNibble(data & 0x0F);
+}
+
+void LCD_Command(uint8_t cmd)
+{
+    LCD_SendByte(cmd, 0);
+    HAL_Delay(2);
+}
+
+void LCD_Init(GPIO_TypeDef* rs_port, uint16_t rs_pin,
+              GPIO_TypeDef* en_port, uint16_t en_pin,
+              GPIO_TypeDef* d4_port, uint16_t d4_pin,
+              GPIO_TypeDef* d5_port, uint16_t d5_pin,
+              GPIO_TypeDef* d6_port, uint16_t d6_pin,
+              GPIO_TypeDef* d7_port, uint16_t d7_pin)
+{
+    // Save pins
+    LCD_RS_PORT = rs_port; LCD_RS_PIN = rs_pin;
+    LCD_EN_PORT = en_port; LCD_EN_PIN = en_pin;
+    LCD_D4_PORT = d4_port; LCD_D4_PIN = d4_pin;
+    LCD_D5_PORT = d5_port; LCD_D5_PIN = d5_pin;
+    LCD_D6_PORT = d6_port; LCD_D6_PIN = d6_pin;
+    LCD_D7_PORT = d7_port; LCD_D7_PIN = d7_pin;
+
+    // Configure pins as output
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+
+    GPIO_InitStruct.Pin = LCD_RS_PIN; HAL_GPIO_Init(LCD_RS_PORT, &GPIO_InitStruct);
+    GPIO_InitStruct.Pin = LCD_EN_PIN; HAL_GPIO_Init(LCD_EN_PORT, &GPIO_InitStruct);
+    GPIO_InitStruct.Pin = LCD_D4_PIN | LCD_D5_PIN | LCD_D6_PIN | LCD_D7_PIN;
+    HAL_GPIO_Init(LCD_D4_PORT, &GPIO_InitStruct);
+
+    HAL_Delay(50);
+
+    // Init sequence
+    LCD_SendNibble(0x03); HAL_Delay(5);
+    LCD_SendNibble(0x03); HAL_Delay(5);
+    LCD_SendNibble(0x03); HAL_Delay(1);
+    LCD_SendNibble(0x02); // 4-bit mode
+
+    LCD_Command(0x28); // 4-bit, 2 lines, 5x8 font
+    LCD_Command(0x0C); // Display ON, cursor off
+    LCD_Command(0x06); // Entry mode
+    LCD_Clear();
+}
+
+void LCD_Clear(void)
+{
+    LCD_Command(0x01);
+    HAL_Delay(2);
+}
+
+void LCD_SetCursor(uint8_t row, uint8_t col)
+{
+    uint8_t addr = (row == 0) ? 0x00 : 0x40;
+    addr += col;
+    LCD_Command(0x80 | addr);
+}
+
+void LCD_Print(char *str)
+{
+    for(uint16_t i = 0; i < strlen(str); i++)
+        LCD_SendByte(str[i], 1);
+}

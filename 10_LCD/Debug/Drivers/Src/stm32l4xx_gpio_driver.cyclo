@@ -1,0 +1,2 @@
+../Drivers/Src/stm32l4xx_gpio_driver.c:3:6:GPIO_PeriClockControl	8
+../Drivers/Src/stm32l4xx_gpio_driver.c:19:6:GPIO_WriteToOutputPin	2

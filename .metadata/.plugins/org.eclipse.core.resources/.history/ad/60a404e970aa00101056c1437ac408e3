@@ -1,0 +1,27 @@
+/*
+ * lcd.h
+ *
+ *  Created on: Oct 16, 2025
+ *      Author: KOPPOLU MOUNIKA
+ */
+
+#ifndef LCD_H
+#define LCD_H
+
+#include <stdint.h>
+
+// Initialize LCD with custom pins
+void LCD_Init(void);
+void LCD_Clear(void);
+void LCD_SetCursor(uint8_t row, uint8_t col);
+void LCD_Print(char *str);
+
+// Pin definitions
+#define LCD_RS_PIN   (1U << 8)   // PA8
+#define LCD_EN_PIN   (1U << 9)   // PA9
+#define LCD_D4_PIN   (1U << 0)   // PB0
+#define LCD_D5_PIN   (1U << 1)   // PB1
+#define LCD_D6_PIN   (1U << 2)   // PB2
+#define LCD_D7_PIN   (1U << 3)   // PB3
+
+#endif

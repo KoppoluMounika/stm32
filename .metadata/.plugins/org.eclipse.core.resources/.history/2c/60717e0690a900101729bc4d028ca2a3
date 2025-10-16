@@ -1,0 +1,29 @@
+#ifndef LCD_H
+#define LCD_H
+
+#include "stm32l4xx_gpio_driver.h"
+#include <stdint.h>
+
+// LCD Pin Connections
+#define LCD_RS_GPIO  GPIOC
+#define LCD_RS_PIN   0
+#define LCD_EN_GPIO  GPIOC
+#define LCD_EN_PIN   1
+#define LCD_D4_GPIO  GPIOB
+#define LCD_D4_PIN   0
+#define LCD_D5_GPIO  GPIOB
+#define LCD_D5_PIN   1
+#define LCD_D6_GPIO  GPIOB
+#define LCD_D6_PIN   2
+#define LCD_D7_GPIO  GPIOB
+#define LCD_D7_PIN   3
+
+// Function prototypes
+void LCD_Init(void);
+void LCD_SendCommand(uint8_t cmd);
+void LCD_SendData(uint8_t data);
+void LCD_SendString(char *str);
+void LCD_SetCursor(uint8_t row, uint8_t col);
+void LCD_Clear(void);
+
+#endif

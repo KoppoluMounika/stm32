@@ -1,0 +1,8 @@
+../Drivers/Src/lcd_gpio.c:14:6:delay_ms	2
+../Drivers/Src/lcd_gpio.c:21:13:GPIO_WritePin	2
+../Drivers/Src/lcd_gpio.c:28:13:LCD_Send4Bits	1
+../Drivers/Src/lcd_gpio.c:40:6:LCD_SendCommand	1
+../Drivers/Src/lcd_gpio.c:47:6:LCD_SendData	1
+../Drivers/Src/lcd_gpio.c:54:6:LCD_Init	2
+../Drivers/Src/lcd_gpio.c:84:6:LCD_Clear	1
+../Drivers/Src/lcd_gpio.c:89:6:LCD_Print	2

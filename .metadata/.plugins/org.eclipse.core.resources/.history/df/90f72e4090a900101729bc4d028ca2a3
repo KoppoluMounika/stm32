@@ -1,0 +1,74 @@
+#include "lcd.h"
+#include <stdint.h>
+#include <util/delay.h>  // Use HAL_Delay() if using STM32 HAL
+
+void LCD_EnablePulse(void)
+{
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, EN_PIN, 1);
+    for(volatile int i=0;i<500;i++); // short delay
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, EN_PIN, 0);
+    for(volatile int i=0;i<500;i++);
+}
+
+void LCD_Command(uint8_t cmd)
+{
+    // RS = 0 for command
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, RS_PIN, 0);
+
+    // Send high nibble
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D4_PIN, (cmd>>4)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D5_PIN, (cmd>>5)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D6_PIN, (cmd>>6)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D7_PIN, (cmd>>7)&0x01);
+    LCD_EnablePulse();
+
+    // Send low nibble
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D4_PIN, (cmd>>0)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D5_PIN, (cmd>>1)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D6_PIN, (cmd>>2)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D7_PIN, (cmd>>3)&0x01);
+    LCD_EnablePulse();
+}
+
+void LCD_SendChar(char data)
+{
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, RS_PIN, 1);
+
+    // high nibble
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D4_PIN, (data>>4)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D5_PIN, (data>>5)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D6_PIN, (data>>6)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D7_PIN, (data>>7)&0x01);
+    LCD_EnablePulse();
+
+    // low nibble
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D4_PIN, (data>>0)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D5_PIN, (data>>1)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D6_PIN, (data>>2)&0x01);
+    GPIO_WriteToOutputPin(LCD_GPIO_PORT, D7_PIN, (data>>3)&0x01);
+    LCD_EnablePulse();
+}
+
+void LCD_SendString(char *str)
+{
+    while(*str)
+        LCD_SendChar(*str++);
+}
+
+void LCD_Init(void)
+{
+    // Enable GPIO clock
+    GPIO_PeriClockControl(LCD_GPIO_PORT, ENABLE);
+
+    // Set pins as output (simplified, all PB0-PB5 as output)
+    LCD_GPIO_PORT->MODER |= 0x00005555; // PB0-PB5 output, 01 mode
+
+    // Wait for LCD to power up
+    for(volatile int i=0;i<30000;i++);
+
+    LCD_Command(0x02); // 4-bit mode
+    LCD_Command(0x28); // 2 lines, 5x7
+    LCD_Command(0x0C); // Display on, cursor off
+    LCD_Command(0x06); // Entry mode increment
+    LCD_Command(0x01); // Clear display
+}

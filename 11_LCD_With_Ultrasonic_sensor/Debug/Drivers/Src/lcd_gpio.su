@@ -1,0 +1,8 @@
+../Drivers/Src/lcd_gpio.c:14:6:delay_ms	24	static,ignoring_inline_asm
+../Drivers/Src/lcd_gpio.c:21:13:GPIO_WritePin	16	static
+../Drivers/Src/lcd_gpio.c:28:13:LCD_Send4Bits	16	static
+../Drivers/Src/lcd_gpio.c:40:6:LCD_SendCommand	16	static
+../Drivers/Src/lcd_gpio.c:47:6:LCD_SendData	16	static
+../Drivers/Src/lcd_gpio.c:54:6:LCD_Init	16	static
+../Drivers/Src/lcd_gpio.c:84:6:LCD_Clear	8	static
+../Drivers/Src/lcd_gpio.c:89:6:LCD_Print	16	static
