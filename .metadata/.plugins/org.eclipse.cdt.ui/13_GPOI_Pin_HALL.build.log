@@ -1,0 +1,10 @@
+14:39:49 **** Incremental Build of configuration Debug for project 13_GPOI_Pin_HALL ****
+make -j4 all 
+arm-none-eabi-size  13_GPOI_Pin_HALL.elf 
+   text	   data	    bss	    dec	    hex	filename
+   2700	     12	   1572	   4284	   10bc	13_GPOI_Pin_HALL.elf
+Finished building: default.size.stdout
+ 
+
+14:39:49 Build Finished. 0 errors, 0 warnings. (took 395ms)
+

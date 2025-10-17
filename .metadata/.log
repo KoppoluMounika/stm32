@@ -3404,3 +3404,12 @@ java.lang.Exception: The project description file (.project) for '12_LCD_With_Ul
 	at org.eclipse.ui.actions.OpenResourceAction$1.runInWorkspace(OpenResourceAction.java:279)
 	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:43)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-10-17 14:35:24.076
+!MESSAGE Indexed '13_GPOI_Pin_HALL' (21 sources, 80 headers) in 7.65 sec: 4,838 declarations; 22,714 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0073%)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-10-17 14:39:59.038
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 1 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-10-17 14:39:59.039
+!MESSAGE Existing sessions are:
