@@ -1,0 +1,13 @@
+/*
+ * stm32l4xx_hal_tim.h
+ *
+ *  Created on: Oct 21, 2025
+ *      Author: KOPPOLU MOUNIKA
+ */
+
+#ifndef STM32L4XX_HAL_DRIVER_INC_STM32L4XX_HAL_TIM_H_
+#define STM32L4XX_HAL_DRIVER_INC_STM32L4XX_HAL_TIM_H_
+
+
+
+#endif /* STM32L4XX_HAL_DRIVER_INC_STM32L4XX_HAL_TIM_H_ */

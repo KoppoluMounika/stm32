@@ -1,14 +1,14 @@
-10:40:08 **** Incremental Build of configuration Debug for project 14_UART_Pooling ****
+16:02:26 **** Incremental Build of configuration Debug for project 15_timer_HAL ****
 make -j4 all 
-arm-none-eabi-size  14_UART_Pooling.elf 
+arm-none-eabi-size  15_timer_HAL.elf 
    text	   data	    bss	    dec	    hex	filename
-  13084	     44	   1724	  14852	   3a04	14_UART_Pooling.elf
+   7680	     12	   1652	   9344	   2480	15_timer_HAL.elf
 Finished building: default.size.stdout
  
-10:40:17 **** Incremental Build of configuration Debug for project 14_UART_Pooling ****
+16:02:37 **** Incremental Build of configuration Debug for project 15_timer_HAL ****
 make -j4 all 
-arm-none-eabi-size  14_UART_Pooling.elf 
+arm-none-eabi-size  15_timer_HAL.elf 
    text	   data	    bss	    dec	    hex	filename
-  13084	     44	   1724	  14852	   3a04	14_UART_Pooling.elf
+   7680	     12	   1652	   9344	   2480	15_timer_HAL.elf
 Finished building: default.size.stdout
  

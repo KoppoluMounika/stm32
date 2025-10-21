@@ -1,0 +1,55 @@
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __STM32L4xx_HAL_TIM_H
+#define __STM32L4xx_HAL_TIM_H
+
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
+#include "stm32l4xx_hal_def.h"
+
+/* TIM Counter Mode */
+#define TIM_COUNTERMODE_UP                 0x00000000U
+#define TIM_COUNTERMODE_DOWN               0x00000001U
+#define TIM_COUNTERMODE_CENTERALIGNED1     0x00000002U
+#define TIM_COUNTERMODE_CENTERALIGNED2     0x00000004U
+#define TIM_COUNTERMODE_CENTERALIGNED3     0x00000006U
+
+/* TIM Clock Division */
+#define TIM_CLOCKDIVISION_DIV1             0x00000000U
+#define TIM_CLOCKDIVISION_DIV2             0x00000001U
+#define TIM_CLOCKDIVISION_DIV4             0x00000002U
+
+/* TIM AutoReloadPreload */
+#define TIM_AUTORELOAD_PRELOAD_DISABLE     0x00000000U
+#define TIM_AUTORELOAD_PRELOAD_ENABLE      0x00000001U
+
+/* TIM Handle Structure */
+typedef struct
+{
+  TIM_TypeDef                 *Instance;     /*!< Register base address */
+  TIM_Base_InitTypeDef        Init;          /*!< TIM Time base configuration */
+  void                        *Lock;         /*!< Locking object */
+  __IO HAL_TIM_StateTypeDef   State;         /*!< TIM communication state */
+} TIM_HandleTypeDef;
+
+/* Time Base configuration structure */
+typedef struct
+{
+  uint32_t Prescaler;         /*!< Specifies the prescaler value */
+  uint32_t CounterMode;       /*!< Specifies the counter mode */
+  uint32_t Period;            /*!< Specifies the period value */
+  uint32_t ClockDivision;     /*!< Specifies the clock division */
+  uint32_t AutoReloadPreload; /*!< Specifies the auto-reload preload */
+} TIM_Base_InitTypeDef;
+
+/* Exported functions prototypes */
+HAL_StatusTypeDef HAL_TIM_Base_Init(TIM_HandleTypeDef *htim);
+HAL_StatusTypeDef HAL_TIM_Base_Start_IT(TIM_HandleTypeDef *htim);
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __STM32L4xx_HAL_TIM_H */

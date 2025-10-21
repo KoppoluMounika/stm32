@@ -1,4 +1,4 @@
-15:03:37 **** Build of configuration Debug for project 08_UART_Driver ****
+15:28:14 **** Build of configuration Debug for project 08_UART_Driver ****
 make -j4 all 
 arm-none-eabi-size  08_UART_Driver.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  08_UART_Driver.elf
 Finished building: default.size.stdout
  
 
-15:03:37 Build Finished. 0 errors, 0 warnings. (took 284ms)
+15:28:14 Build Finished. 0 errors, 0 warnings. (took 259ms)
 
