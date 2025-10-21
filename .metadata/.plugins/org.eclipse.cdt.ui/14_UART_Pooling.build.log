@@ -1,0 +1,10 @@
+10:40:17 **** Incremental Build of configuration Debug for project 14_UART_Pooling ****
+make -j4 all 
+arm-none-eabi-size  14_UART_Pooling.elf 
+   text	   data	    bss	    dec	    hex	filename
+  13084	     44	   1724	  14852	   3a04	14_UART_Pooling.elf
+Finished building: default.size.stdout
+ 
+
+10:40:18 Build Finished. 0 errors, 0 warnings. (took 689ms)
+
