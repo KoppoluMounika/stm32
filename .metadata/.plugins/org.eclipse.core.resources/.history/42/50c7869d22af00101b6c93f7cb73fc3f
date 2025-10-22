@@ -1,0 +1,13 @@
+/*
+ * stm32l4xx_ll_adc.h
+ *
+ *  Created on: Oct 22, 2025
+ *      Author: KOPPOLU MOUNIKA
+ */
+
+#ifndef STM32L4XX_HAL_DRIVER_INC_STM32L4XX_LL_ADC_H_
+#define STM32L4XX_HAL_DRIVER_INC_STM32L4XX_LL_ADC_H_
+
+
+
+#endif /* STM32L4XX_HAL_DRIVER_INC_STM32L4XX_LL_ADC_H_ */

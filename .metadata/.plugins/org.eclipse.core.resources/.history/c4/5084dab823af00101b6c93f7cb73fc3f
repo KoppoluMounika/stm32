@@ -1,0 +1,57 @@
+/*
+ * tim.c
+ *
+ *  Created on: Oct 22, 2025
+ *      Author: KOPPOLU MOUNIKA
+ */
+
+
+#include "stm32l4xx_hal.h"
+#include "tim.h"
+
+//configure timer to timeout every second
+//meaning 1hz
+
+//system default freq = 16 000 000
+//default pclk1 = 16 000 000
+//default pclk2 = 16 000 000
+//timer prescaler = 1600 => 16 000 000/ 1600 => 10 000(10KH)
+//timer period (Auto relaod Value) = 10 000
+
+ TIM_HandleTypeDef htim2;
+
+
+ void MX_TIM2_Init(void)
+ {
+     __HAL_RCC_TIM2_CLK_ENABLE();   // ✅ enable timer clock
+
+     htim2.Instance = TIM2;
+     htim2.Init.Prescaler = 1600 - 1;          // 16 MHz / 1600 = 10 kHz
+     htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
+     htim2.Init.Period = 10000 - 1;            // 10 kHz / 10 000 = 1 Hz
+     htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+     htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+
+     HAL_TIM_Base_Init(&htim2);
+
+     HAL_NVIC_SetPriority(TIM2_IRQn, 0, 0);
+     HAL_NVIC_EnableIRQ(TIM2_IRQn);
+
+     HAL_TIM_Base_Start_IT(&htim2);            // start timer interrupt
+ }
+
+ // interrupt handler
+ void TIM2_IRQHandler(void)
+ {
+     HAL_TIM_IRQHandler(&htim2);
+ }
+
+ // callback that runs every 1 s
+ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+ {
+     if (htim->Instance == TIM2)
+     {
+         // toggle LED or run periodic code here
+         HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_13);   // example: onboard LED
+     }
+ }

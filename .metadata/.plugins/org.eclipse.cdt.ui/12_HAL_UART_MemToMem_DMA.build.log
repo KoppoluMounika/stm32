@@ -1,0 +1,10 @@
+17:30:08 **** Incremental Build of configuration Debug for project 12_HAL_UART_MemToMem_DMA ****
+make -j4 all 
+arm-none-eabi-size  12_HAL_UART_MemToMem_DMA.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7508	    140	   1844	   9492	   2514	12_HAL_UART_MemToMem_DMA.elf
+Finished building: default.size.stdout
+ 
+
+17:30:08 Build Finished. 0 errors, 0 warnings. (took 342ms)
+
