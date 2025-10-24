@@ -1,0 +1,10 @@
+14:34:16 **** Incremental Build of configuration Debug for project 04_HAL_UART_test ****
+make -j4 all 
+arm-none-eabi-size  04_HAL_UART_test.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9884	    104	   2048	  12036	   2f04	04_HAL_UART_test.elf
+Finished building: default.size.stdout
+ 
+
+14:34:17 Build Finished. 0 errors, 0 warnings. (took 795ms)
+
