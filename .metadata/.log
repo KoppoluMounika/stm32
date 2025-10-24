@@ -312,3 +312,201 @@ java.lang.Exception: Resource '/02_GPIO_Driver' does not exist.
 
 !ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2025-10-24 15:07:48.057
 !MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-10-24 16:01:07.288
+!MESSAGE Indexed '27_GPIO_BareMetal' (3 sources, 53 headers) in 4.86 sec: 1,954 declarations; 2,863 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.042%)
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 16:05:11.467
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 16:05:11.467
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 16:05:11.467
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\27_GPIO_BareMetal overlaps the location of another project: '27_GPIO_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 16:05:11.485
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 16:05:18.587
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 16:05:18.587
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 16:05:18.587
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\27_GPIO_BareMetal overlaps the location of another project: '27_GPIO_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 16:05:18.589
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:19:40.379
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:19:40.379
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:19:40.379
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\27_GPIO_BareMetal overlaps the location of another project: '27_GPIO_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:19:40.381
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:22:08.802
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:22:08.802
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:22:08.802
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\27_GPIO_BareMetal overlaps the location of another project: '27_GPIO_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:22:08.803
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:25:36.782
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:25:36.782
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:25:36.782
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\27_GPIO_BareMetal overlaps the location of another project: '27_GPIO_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:25:36.783
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-10-24 17:26:00.599
+!MESSAGE Indexed '27_GPIO_BareMetal' (3 sources, 54 headers) in 0.519 sec: 1,953 declarations; 2,868 references; 0 unresolved inclusions; 1 syntax errors; 18 unresolved names (0.37%)
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:26:03.488
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:26:03.488
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:26:03.488
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\27_GPIO_BareMetal overlaps the location of another project: '27_GPIO_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:26:03.489
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:26:07.441
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:26:07.441
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:26:07.441
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\27_GPIO_BareMetal overlaps the location of another project: '27_GPIO_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:26:07.441
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:26:14.628
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:26:14.628
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:26:14.628
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\27_GPIO_BareMetal overlaps the location of another project: '27_GPIO_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:26:14.629
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-10-24 17:33:22.092
+!MESSAGE Indexed '28_GPIO_Output_BareMetal' (3 sources, 53 headers) in 2.76 sec: 1,954 declarations; 2,863 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.042%)
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:34:15.279
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:34:15.279
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:34:15.279
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\28_GPIO_Output_BareMetal overlaps the location of another project: '28_GPIO_Output_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:34:15.281
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:34:29.684
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:34:29.684
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:34:29.684
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\28_GPIO_Output_BareMetal overlaps the location of another project: '28_GPIO_Output_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:34:29.685
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-10-24 17:40:54.086
+!MESSAGE Indexed '29_UART_BareMetal' (3 sources, 53 headers) in 0.54 sec: 1,954 declarations; 2,863 references; 0 unresolved inclusions; 2 syntax errors; 2 unresolved names (0.042%)
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:43:36.050
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:43:36.050
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:43:36.050
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\29_UART_BareMetal overlaps the location of another project: '29_UART_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:43:36.051
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-10-24 17:43:51.902
+!MESSAGE Indexed '29_UART_BareMetal' (3 sources, 54 headers) in 0.396 sec: 1,975 declarations; 2,883 references; 0 unresolved inclusions; 3 syntax errors; 35 unresolved names (0.72%)
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:43:54.757
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:43:54.757
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:43:54.757
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\29_UART_BareMetal overlaps the location of another project: '29_UART_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:43:54.759
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:44:15.603
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:44:15.603
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:44:15.603
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\29_UART_BareMetal overlaps the location of another project: '29_UART_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:44:15.604
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:48:00.827
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:48:00.827
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:48:00.827
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\29_UART_BareMetal overlaps the location of another project: '29_UART_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:48:00.827
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:48:07.792
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:48:07.792
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:48:07.792
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\29_UART_BareMetal overlaps the location of another project: '29_UART_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:48:07.793
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:48:15.616
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:48:15.616
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:48:15.616
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\29_UART_BareMetal overlaps the location of another project: '29_UART_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:48:15.617
+!MESSAGE Project is null
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:48:21.753
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:48:21.753
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:48:21.753
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\29_UART_BareMetal overlaps the location of another project: '29_UART_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:48:21.754
+!MESSAGE Project is null
+
+!ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2025-10-24 17:48:31.964
+!MESSAGE Won't launch debug session since we failed to locate the binary.
+
+!ENTRY org.eclipse.core.resources 4 77 2025-10-24 17:48:55.093
+!MESSAGE Invalid project description.
+!SUBENTRY 1 unknown 0 0 2025-10-24 17:48:55.093
+!MESSAGE OK
+!SUBENTRY 1 org.eclipse.core.resources 4 77 2025-10-24 17:48:55.093
+!MESSAGE C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\29_UART_BareMetal overlaps the location of another project: '29_UART_BareMetal'
+
+!ENTRY com.st.stm32cube.common.projectcreation 4 0 2025-10-24 17:48:55.094
+!MESSAGE Project is null
