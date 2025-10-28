@@ -1,0 +1,4 @@
+../Src/main.c:11:5:main	16	static
+../Src/main.c:27:6:UART2_Init	4	static
+../Src/main.c:45:6:UART2_Write	16	static
+../Src/main.c:51:5:__io_putchar	16	static

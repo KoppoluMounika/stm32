@@ -1,0 +1,10 @@
+15:22:05 **** Incremental Build of configuration Debug for project 32_USART_Tx_Rx_BareMetal ****
+make -j4 all 
+arm-none-eabi-size  32_USART_Tx_Rx_BareMetal.elf 
+   text	   data	    bss	    dec	    hex	filename
+   3836	     92	   1900	   5828	   16c4	32_USART_Tx_Rx_BareMetal.elf
+Finished building: default.size.stdout
+ 
+
+15:22:05 Build Finished. 0 errors, 0 warnings. (took 345ms)
+

@@ -1,0 +1,14 @@
+#include "stm32l4xx.h"
+#include "uart.h"
+#include <stdio.h>
+
+int main(void)
+{
+    USART2_tx_rx_init();
+
+    while(1)
+    {
+        printf("Hello from STM32\r\n");
+        for (volatile int i = 0; i < 1000000; i++);  // small delay
+    }
+}
