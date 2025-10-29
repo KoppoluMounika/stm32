@@ -199,4 +199,4 @@ VP_SYS_VS_Systick.Signal=SYS_VS_Systick
 board=NUCLEO-L476RG
 boardIOC=true
 rtos.0.ip=FREERTOS
-isbadioc=true
+isbadioc=false

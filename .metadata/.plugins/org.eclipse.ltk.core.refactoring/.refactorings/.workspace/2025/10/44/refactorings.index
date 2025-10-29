@@ -43,3 +43,7 @@
 1761738566350	Delete resource '40_Task_Creation_RTOS/task_creation Debug.launch'
 1761741579196	Delete resource '41_LedTask_UserButtionTask_Test_RTOS/02_LedTask_ButtonTask.ioc'
 1761741590681	Delete resource '41_LedTask_UserButtionTask_Test_RTOS/led_switch Debug.launch'
+1761742288712	Delete resource '42_Task_Deletion_RTOS/05_Task_Delete.ioc'
+1761742302867	Delete resource '42_Task_Deletion_RTOS/led_switch.ioc'
+1761742310289	Delete resource '42_Task_Deletion_RTOS/led_switch Debug.launch'
+1761742314754	Delete resource '42_Task_Deletion_RTOS/task_delete.launch'

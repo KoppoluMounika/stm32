@@ -1,4 +1,4 @@
-16:07:39 **** Incremental Build of configuration Debug for project 39_SPI_Driver_BareMetal ****
+18:20:29 **** Build of configuration Debug for project 39_SPI_Driver_BareMetal ****
 make -j4 all 
 arm-none-eabi-size  39_SPI_Driver_BareMetal.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  39_SPI_Driver_BareMetal.elf
 Finished building: default.size.stdout
  
 
-16:07:39 Build Finished. 0 errors, 0 warnings. (took 302ms)
+18:20:29 Build Finished. 0 errors, 0 warnings. (took 443ms)
 
