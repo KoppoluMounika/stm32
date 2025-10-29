@@ -1,0 +1,10 @@
+19:17:24 **** Incremental Build of configuration Debug for project 45_Task_Priority_RTOS ****
+make -j4 all 
+arm-none-eabi-size  45_Task_Priority_RTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  21420	     96	   5992	  27508	   6b74	45_Task_Priority_RTOS.elf
+Finished building: default.size.stdout
+ 
+
+19:17:25 Build Finished. 0 errors, 0 warnings. (took 574ms)
+

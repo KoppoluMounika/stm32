@@ -1,0 +1,10 @@
+20:00:25 **** Incremental Build of configuration Debug for project 49_Counting_Semaphore_RTOS ****
+make -j4 all 
+arm-none-eabi-size  49_Counting_Semaphore_RTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  13420	     12	   1892	  15324	   3bdc	49_Counting_Semaphore_RTOS.elf
+Finished building: default.size.stdout
+ 
+
+20:00:26 Build Finished. 0 errors, 0 warnings. (took 517ms)
+
