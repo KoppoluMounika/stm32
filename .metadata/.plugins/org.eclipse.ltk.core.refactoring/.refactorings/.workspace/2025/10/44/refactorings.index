@@ -37,3 +37,7 @@
 1761715873509	Delete resource '35_Timers_BareMetal/Debug/09_systick_delay.elf'
 1761715877769	Delete resource '35_Timers_BareMetal/Debug/09_systick_delay.list'
 1761715883923	Delete resource '35_Timers_BareMetal/Debug/09_systick_delay.map'
+1761737728019	Delete resource '40_Task_Creation_RTOS/01_Task_Creation.ioc'
+1761738546409	Delete resource '40_Task_Creation_RTOS/01_Task_Creation.ioc'
+1761738560317	Delete resource '40_Task_Creation_RTOS/task_creation.ioc'
+1761738566350	Delete resource '40_Task_Creation_RTOS/task_creation Debug.launch'

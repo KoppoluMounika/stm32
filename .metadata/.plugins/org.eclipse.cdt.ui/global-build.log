@@ -1,29 +1,45 @@
-16:05:55 **** Incremental Build of configuration Debug for project 39_SPI_Driver_BareMetal ****
+17:48:26 **** Incremental Build of configuration Debug for project 40_Task_Creation_RTOS ****
 make -j4 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-../Src/main.c: In function 'main':
-../Src/main.c:11:9: warning: implicit declaration of function 'spi1_init'; did you mean 'i2c1_init'? [-Wimplicit-function-declaration]
-   11 |         spi1_init();
-      |         ^~~~~~~~~
-      |         i2c1_init
-../Src/main.c:15:10: warning: implicit declaration of function 'spi1_transmit_receive' [-Wimplicit-function-declaration]
-   15 |          spi1_transmit_receive(tx_buf, rx_buf, sizeof(tx_buf));
-      |          ^~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "39_SPI_Driver_BareMetal.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\39_SPI_Driver_BareMetal\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="39_SPI_Driver_BareMetal.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 39_SPI_Driver_BareMetal.elf
- 
-arm-none-eabi-size  39_SPI_Driver_BareMetal.elf 
-arm-none-eabi-objdump -h -S 39_SPI_Driver_BareMetal.elf  > "39_SPI_Driver_BareMetal.list"
+arm-none-eabi-size  40_Task_Creation_RTOS.elf 
    text	   data	    bss	    dec	    hex	filename
-   1108	     12	   1580	   2700	    a8c	39_SPI_Driver_BareMetal.elf
+  20760	     96	   5984	  26840	   68d8	40_Task_Creation_RTOS.elf
 Finished building: default.size.stdout
  
-Finished building: 39_SPI_Driver_BareMetal.list
- 
-16:07:39 **** Incremental Build of configuration Debug for project 39_SPI_Driver_BareMetal ****
+17:48:50 **** Incremental Build of configuration Debug for project 40_Task_Creation_RTOS ****
 make -j4 all 
-arm-none-eabi-size  39_SPI_Driver_BareMetal.elf 
+arm-none-eabi-size  40_Task_Creation_RTOS.elf 
    text	   data	    bss	    dec	    hex	filename
-   1108	     12	   1580	   2700	    a8c	39_SPI_Driver_BareMetal.elf
+  20760	     96	   5984	  26840	   68d8	40_Task_Creation_RTOS.elf
 Finished building: default.size.stdout
+ 
+17:51:33 **** Incremental Build of configuration Debug for project 40_Task_Creation_RTOS ****
+make -j4 all 
+arm-none-eabi-size  40_Task_Creation_RTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20760	     96	   5984	  26840	   68d8	40_Task_Creation_RTOS.elf
+Finished building: default.size.stdout
+ 
+17:56:03 **** Incremental Build of configuration Debug for project 40_Task_Creation_RTOS ****
+make -j4 all 
+arm-none-eabi-size  40_Task_Creation_RTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20760	     96	   5984	  26840	   68d8	40_Task_Creation_RTOS.elf
+Finished building: default.size.stdout
+ 
+17:57:34 **** Incremental Build of configuration Debug for project 40_Task_Creation_RTOS ****
+make -j4 all 
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/tasks.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L476xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/tasks.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/tasks.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/tasks.o"
+../Middlewares/Third_Party/FreeRTOS/Source/tasks.c:3639:13: warning: 'prvCheckTasksWaitingTermination' defined but not used [-Wunused-function]
+ 3639 | static void prvCheckTasksWaitingTermination( void )
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "40_Task_Creation_RTOS.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\40_Task_Creation_RTOS\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="40_Task_Creation_RTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 40_Task_Creation_RTOS.elf
+ 
+arm-none-eabi-size  40_Task_Creation_RTOS.elf 
+arm-none-eabi-objdump -h -S 40_Task_Creation_RTOS.elf  > "40_Task_Creation_RTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  20568	     96	   5976	  26640	   6810	40_Task_Creation_RTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: 40_Task_Creation_RTOS.list
  

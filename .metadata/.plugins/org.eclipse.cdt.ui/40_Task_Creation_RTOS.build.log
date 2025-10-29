@@ -1,0 +1,20 @@
+17:57:34 **** Incremental Build of configuration Debug for project 40_Task_Creation_RTOS ****
+make -j4 all 
+arm-none-eabi-gcc "../Middlewares/Third_Party/FreeRTOS/Source/tasks.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32L476xx -c -I../Core/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc -I../Drivers/STM32L4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32L4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Middlewares/Third_Party/FreeRTOS/Source/tasks.d" -MT"Middlewares/Third_Party/FreeRTOS/Source/tasks.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Middlewares/Third_Party/FreeRTOS/Source/tasks.o"
+../Middlewares/Third_Party/FreeRTOS/Source/tasks.c:3639:13: warning: 'prvCheckTasksWaitingTermination' defined but not used [-Wunused-function]
+ 3639 | static void prvCheckTasksWaitingTermination( void )
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "40_Task_Creation_RTOS.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\40_Task_Creation_RTOS\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="40_Task_Creation_RTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 40_Task_Creation_RTOS.elf
+ 
+arm-none-eabi-size  40_Task_Creation_RTOS.elf 
+arm-none-eabi-objdump -h -S 40_Task_Creation_RTOS.elf  > "40_Task_Creation_RTOS.list"
+   text	   data	    bss	    dec	    hex	filename
+  20568	     96	   5976	  26640	   6810	40_Task_Creation_RTOS.elf
+Finished building: default.size.stdout
+ 
+Finished building: 40_Task_Creation_RTOS.list
+ 
+
+17:57:36 Build Finished. 0 errors, 1 warnings. (took 1s.650ms)
+
