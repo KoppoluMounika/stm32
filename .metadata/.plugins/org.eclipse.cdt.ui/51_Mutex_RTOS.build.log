@@ -1,0 +1,10 @@
+20:20:30 **** Incremental Build of configuration Debug for project 51_Mutex_RTOS ****
+make -j4 all 
+arm-none-eabi-size  51_Mutex_RTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  24516	     96	   5984	  30596	   7784	51_Mutex_RTOS.elf
+Finished building: default.size.stdout
+ 
+
+20:20:31 Build Finished. 0 errors, 0 warnings. (took 613ms)
+

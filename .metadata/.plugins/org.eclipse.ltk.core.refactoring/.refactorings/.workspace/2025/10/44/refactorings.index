@@ -59,3 +59,8 @@
 1761747078654	Delete resource '48_Binary_Semaphore_RTOS/09_binary_seaphore Debug.launch'
 1761747640446	Delete resource '49_Counting_Semaphore_RTOS/09_binary_seaphore.ioc'
 1761747647920	Delete resource '49_Counting_Semaphore_RTOS/09_binary_seaphore Debug.launch'
+1761749221853	Delete resource '50_Mutex_Using_Bainary_Semaphore_RTOS/11_mutex_using_bin_semaphore.ioc'
+1761749226408	Delete resource '50_Mutex_Using_Bainary_Semaphore_RTOS/11_mutex_using_bin_semaphore Debug.launch'
+1761749331124	Rename resource '21_Mutex_RTOS'
+1761749362307	Delete resource '51_Mutex_RTOS/12_mutex.ioc'
+1761749366318	Delete resource '51_Mutex_RTOS/12_mutex Debug.launch'
