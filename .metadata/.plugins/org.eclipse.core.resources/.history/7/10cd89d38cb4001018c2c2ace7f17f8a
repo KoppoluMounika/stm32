@@ -1,0 +1,47 @@
+#include "stm32l4xx.h"   // ✅ Needed for peripheral definitions
+#include "exti.h"
+
+#define GPIOCEN     (1U << 2)
+
+void pc13_exti_init(void)
+{
+    // Disable global interrupts during setup
+    __disable_irq();
+
+    /************ Enable clock for GPIOC ************/
+    RCC->AHB2ENR |= GPIOCEN;
+
+    /************ Enable SYSCFG clock ************/
+    RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
+
+    /************ Set PC13 as input ************/
+    GPIOC->MODER &= ~(3U << 26);  // Clear both bits for pin 13 (input mode)
+
+    /************ Select Port C for EXTI13 ************/
+    SYSCFG->EXTICR[3] &= ~(0xFU << 4);  // Clear field for EXTI13
+    SYSCFG->EXTICR[3] |= (0x2U << 4);   // 0x2 = Port C
+
+    /************ Configure EXTI line ************/
+    EXTI->IMR1  |=  (1U << 13);  // Unmask interrupt line 13
+    EXTI->FTSR1 |=  (1U << 13);  // Falling edge trigger
+    EXTI->RTSR1 &= ~(1U << 13);  // Disable rising edge trigger (optional)
+
+    /************ Enable interrupt line in NVIC ************/
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
+
+    // Re-enable global interrupts
+    __enable_irq();
+}
+
+/************ Interrupt Handler ************/
+void EXTI15_10_IRQHandler(void)
+{
+    // Check pending flag for line 13
+    if (EXTI->PR1 & (1U << 13))
+    {
+        EXTI->PR1 |= (1U << 13); // ✅ Clear pending flag by writing 1
+
+        // Example: Toggle LED at PA5 (optional)
+        GPIOA->ODR ^= (1U << 5);
+    }
+}

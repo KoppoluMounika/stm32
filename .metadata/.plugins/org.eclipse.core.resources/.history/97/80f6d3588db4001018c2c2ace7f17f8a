@@ -1,0 +1,58 @@
+#include "stm32l4xx.h"
+#include <stdio.h>
+#include "uart.h"
+#include "systick.h"
+#include "timer.h"
+#include "exti.h"
+
+char data[] = "Mounika\r\n";
+volatile uint8_t tx_index = 0;
+volatile uint8_t send_flag = 0;
+char key;
+
+int main(void)
+{
+    USART2_tx_rx_interrupt_init();
+    pc13_exti_init(); // initialize external interrupt
+
+    while (1)
+    {
+        // when button pressed, start UART transmission
+        if (send_flag)
+        {
+            USART2->CR1 |= CR1_TXEIE; // enable TX interrupt
+            send_flag = 0;
+        }
+    }
+}
+
+void USART2_IRQHandler(void)
+{
+    if (USART2->ISR & ISR_RXNE)
+    {
+        key = USART2->RDR; // receive interrupt
+    }
+
+    if (USART2->ISR & ISR_TXE)
+    {
+        if (data[tx_index] != '\0')
+        {
+            USART2->TDR = data[tx_index++];
+        }
+        else
+        {
+            USART2->CR1 &= ~CR1_TXEIE; // disable TX interrupt
+            tx_index = 0;
+        }
+    }
+}
+
+void EXTI15_10_IRQHandler(void)
+{
+    // check if EXTI13 caused interrupt (blue button)
+    if (EXTI->PR1 & (1U << 13))
+    {
+        EXTI->PR1 |= (1U << 13); // clear pending bit
+        send_flag = 1;           // trigger UART send
+    }
+}

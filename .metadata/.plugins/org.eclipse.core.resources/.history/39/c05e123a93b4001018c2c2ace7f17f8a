@@ -1,0 +1,24 @@
+#include "stm32l4xx.h"
+#include "uart.h"
+#include <stdio.h>
+
+void Clock_Config(void)
+{
+    RCC->CR |= RCC_CR_HSION;
+    while (!(RCC->CR & RCC_CR_HSIRDY));
+    RCC->CFGR &= ~0x3;
+    RCC->CFGR |= 0x1;
+    while ((RCC->CFGR & (0xC)) != (0x4));
+}
+
+int main(void)
+{
+    Clock_Config();
+    USART2_tx_rx_init();
+
+    while (1)
+    {
+        uart_send_string("DMA UART Working!\r\n");
+        for (volatile int i = 0; i < 1000000; i++);
+    }
+}

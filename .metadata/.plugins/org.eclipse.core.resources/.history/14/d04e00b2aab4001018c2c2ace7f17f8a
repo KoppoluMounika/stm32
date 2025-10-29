@@ -1,0 +1,21 @@
+#include "stm32l4xx.h"
+#include "i2c.h"
+#include "uart.h"
+#include <stdio.h>
+
+int main(void)
+{
+    USART2_tx_rx_init();
+    printf("STM32 I2C Master Test\r\n");
+
+    I2C1_Init();
+
+    uint8_t data[2] = {0xA1, 0xB2};
+
+    while(1)
+    {
+        I2C1_Master_Transmit(0x12, data, 2);
+        printf("Sent: 0xA1 0xB2\r\n");
+        for (volatile int i = 0; i < 1000000; i++);
+    }
+}

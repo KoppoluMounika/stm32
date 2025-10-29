@@ -1,0 +1,70 @@
+#include "stm32l4xx.h"
+#include <stdio.h>
+
+#define GPIOAEN   (1U<<0)
+#define USART2EN  (1U<<17)
+#define APB1_CLK  80000000
+#define UART_BAUDRATE 115200
+
+static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t BaudRate);
+static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate);
+void USART2_tx_rx_init(void);
+void uart2_write(int ch);
+
+int main(void)
+{
+    USART2_tx_rx_init();
+
+    while (1)
+    {
+        uart2_write('H');
+        uart2_write('i');
+        uart2_write('\r');
+        uart2_write('\n');
+
+        for (volatile int i = 0; i < 1000000; i++);  // small delay
+    }
+}
+
+void USART2_tx_rx_init(void)
+{
+    /* Enable clock access to GPIOA */
+    RCC->AHB2ENR |= GPIOAEN;
+
+    /* Set PA2, PA3 to alternate function mode */
+    GPIOA->MODER &= ~((3U << 4) | (3U << 6));
+    GPIOA->MODER |=  ((2U << 4) | (2U << 6));
+
+    /* Set AF7 (USART2) for PA2, PA3 */
+    GPIOA->AFRL &= ~((0xF << 8) | (0xF << 12));
+    GPIOA->AFRL |=  (7U << 8) | (7U << 12);
+
+    /* Enable clock access to USART2 */
+    RCC->APB1ENR1 |= USART2EN;
+
+    /* Configure baudrate */
+    uart_set_baudrate(USART2, APB1_CLK, UART_BAUDRATE);
+
+    /* Configure transfer direction */
+    USART2->CR1 = (1U << 3) | (1U << 2);  // TE, RE
+
+    /* Enable USART2 */
+    USART2->CR1 |= (1U << 0);
+}
+
+void uart2_write(int ch)
+{
+    /* Wait until TXE (Transmit data register empty) */
+    while (!(USART2->ISR & (1U << 7))) {}
+    USART2->TDR = ch & 0xFF;
+}
+
+static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t BaudRate)
+{
+    USARTx->BRR = compute_uart_bd(PeriphClk, BaudRate);
+}
+
+static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate)
+{
+    return ((PeriphClk + (BaudRate/2U)) / BaudRate);
+}

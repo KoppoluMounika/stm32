@@ -1,0 +1,149 @@
+#include "stm32l4xx.h"
+#include <stdio.h>
+
+// ============================ DEFINES ============================
+#define GPIOAEN         (1U << 0)
+#define USART2EN        (1U << 17)
+#define ADC1EN          (1U << 13)
+
+#define SYS_FREQ        16000000U
+#define UART_BAUDRATE   115200U
+
+#define CR1_TE          (1U << 3)
+#define CR1_RE          (1U << 2)
+#define CR1_UE          (1U << 0)
+#define ISR_TXE         (1U << 7)
+
+#define SYSTICK_LOAD_VAL    16000U
+#define CTRL_ENABLE         (1U << 0)
+#define CTRL_CLKSRC         (1U << 2)
+#define CTRL_COUNTFLAG      (1U << 16)
+
+#define ADC123_COMMON_BASE  (0x50000300UL)
+#define ADC1_COMMON         ((ADC_Common_TypeDef *) ADC123_COMMON_BASE)
+
+// ============================ FUNCTION PROTOTYPES ============================
+static void uart2_tx_init(void);
+static void uart2_write(int ch);
+static void systick_delay_ms(uint32_t delay);
+static void adc_init(void);
+static uint32_t adc_read(void);
+
+// ============================ REDIRECT printf ============================
+int __io_putchar(int ch)
+{
+    uart2_write(ch);
+    return ch;
+}
+
+// ============================ MAIN ============================
+int main(void)
+{
+    uart2_tx_init();
+    adc_init();
+
+    printf("UART + ADC + SysTick Demo\r\n");
+
+    while (1)
+    {
+        uint32_t val = adc_read();
+        float voltage = (3.3f / 4095.0f) * val;
+
+        printf("ADC Value: %lu  |  Voltage: %.2f V\r\n", val, voltage);
+        systick_delay_ms(1000);
+    }
+}
+
+// ============================ UART FUNCTIONS ============================
+static void uart2_tx_init(void)
+{
+    // Enable GPIOA clock
+    RCC->AHB2ENR |= GPIOAEN;
+
+    // Set PA2 (TX) to AF7
+    GPIOA->MODER &= ~(3U << 4);
+    GPIOA->MODER |=  (2U << 4);
+    GPIOA->AFR[0]  &= ~(0xFU << 8);
+    GPIOA->AFR[0]  |=  (7U  << 8);
+
+    // Enable USART2 clock
+    RCC->APB1ENR1 |= USART2EN;
+
+    // Select HSI16 as USART2 clock
+    RCC->CCIPR &= ~(3U << 2);
+    RCC->CCIPR |=  (2U << 2);
+
+    // Set baud rate manually for 115200
+    USART2->BRR = 139;  // (16000000 / 115200) ≈ 139
+
+    USART2->CR1 = CR1_TE | CR1_UE;
+}
+
+static void uart2_write(int ch)
+{
+    while (!(USART2->ISR & ISR_TXE)) {}
+    USART2->TDR = (ch & 0xFF);
+}
+
+// ============================ SYSTICK DELAY ============================
+static void systick_delay_ms(uint32_t delay)
+{
+    SysTick->LOAD = SYSTICK_LOAD_VAL - 1;
+    SysTick->VAL  = 0;
+    SysTick->CTRL = CTRL_ENABLE | CTRL_CLKSRC;
+
+    for (uint32_t i = 0; i < delay; i++)
+    {
+        while ((SysTick->CTRL & CTRL_COUNTFLAG) == 0) {}
+    }
+
+    SysTick->CTRL = 0; // Disable SysTick
+}
+
+// ============================ ADC FUNCTIONS ============================
+static void adc_init(void)
+{
+    // Enable GPIOA clock
+    RCC->AHB2ENR |= GPIOAEN;
+
+    // Configure PA1 as analog
+    GPIOA->MODER |= (3U << 2);
+    GPIOA->ASCR  |= (1U << 1);
+
+    // Enable ADC clock
+    RCC->AHB2ENR |= ADC1EN;
+
+    // Exit deep power down
+    ADC1->CR &= ~ADC_CR_DEEPPWD;
+
+    // Enable ADC voltage regulator
+    ADC1->CR |= ADC_CR_ADVREGEN;
+    for (volatile int i = 0; i < 1000; i++);
+
+    // Calibrate
+    ADC1->CR |= ADC_CR_ADCAL;
+    while (ADC1->CR & ADC_CR_ADCAL);
+
+    // Enable ADC
+    ADC1->CR |= ADC_CR_ADEN;
+    while (!(ADC1->ISR & ADC_ISR_ADRDY));
+
+    // Select channel 6 (PA1)
+    ADC1->SQR1 &= ~ADC_SQR1_L;
+    ADC1->SQR1 &= ~ADC_SQR1_SQ1;
+    ADC1->SQR1 |=  (6U << 6);
+
+    // Sampling time
+    ADC1->SMPR1 &= ~(7U << 18);
+    ADC1->SMPR1 |=  (2U << 18);
+
+    // Prescaler
+    ADC1_COMMON->CCR |= (1U << 16);
+}
+
+static uint32_t adc_read(void)
+{
+    ADC1->CR |= ADC_CR_ADSTART;
+    while (!(ADC1->ISR & ADC_ISR_EOC));
+    return ADC1->DR;
+}

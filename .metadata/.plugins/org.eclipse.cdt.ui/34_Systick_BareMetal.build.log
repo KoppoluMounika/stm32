@@ -1,0 +1,10 @@
+18:09:30 **** Incremental Build of configuration Debug for project 34_Systick_BareMetal ****
+make -j4 all 
+arm-none-eabi-size  34_Systick_BareMetal.elf 
+   text	   data	    bss	    dec	    hex	filename
+  15312	    456	   1904	  17672	   4508	34_Systick_BareMetal.elf
+Finished building: default.size.stdout
+ 
+
+18:09:31 Build Finished. 0 errors, 0 warnings. (took 282ms)
+

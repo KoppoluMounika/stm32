@@ -1,0 +1,19 @@
+16:24:47 **** Incremental Build of configuration Debug for project 33_ADC_BareMetal ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/adc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -DSTM32L476xx -c -I../Inc -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Include" -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/adc.d" -MT"Src/adc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/adc.o"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -DSTM32L476xx -c -I../Inc -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Include" -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -DSTM32L476xx -c -I../Inc -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Include" -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
+arm-none-eabi-gcc -o "33_ADC_BareMetal.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\33_ADC_BareMetal\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="33_ADC_BareMetal.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 33_ADC_BareMetal.elf
+ 
+arm-none-eabi-size  33_ADC_BareMetal.elf 
+arm-none-eabi-objdump -h -S 33_ADC_BareMetal.elf  > "33_ADC_BareMetal.list"
+   text	   data	    bss	    dec	    hex	filename
+   5612	     92	   1900	   7604	   1db4	33_ADC_BareMetal.elf
+Finished building: default.size.stdout
+ 
+Finished building: 33_ADC_BareMetal.list
+ 
+
+16:24:47 Build Finished. 0 errors, 0 warnings. (took 941ms)
+

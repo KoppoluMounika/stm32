@@ -1,0 +1,17 @@
+#include "stm32l4xx.h"
+#include "uart.h"
+#include "systick.h"
+#include <stdio.h>
+
+int main(void)
+{
+    // Initialize UART2 and SysTick
+    USART2_tx_init();
+    systick_init();
+
+    while (1)
+    {
+        printf("Mounika\r\n");
+        systick_delay_ms(1000);  // 1 second delay
+    }
+}

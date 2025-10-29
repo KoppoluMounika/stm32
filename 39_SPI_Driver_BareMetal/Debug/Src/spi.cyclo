@@ -1,0 +1,2 @@
+../Src/spi.c:7:6:spi1_init	1
+../Src/spi.c:41:6:spi1_transmit_receive	4

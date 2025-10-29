@@ -1,0 +1,90 @@
+#include "stm32l4xx.h"
+#include <stdio.h>
+
+#define SYSTICK_LOAD_VAL 16000   // 1 ms delay at 16 MHz
+#define CTRL_ENABLE      (1U << 0)
+#define CTRL_CLKSRC      (1U << 2)
+#define CTRL_COUNTFLAG   (1U << 16)
+
+void systickDelayMs(int n);
+void uart2_tx_init(void);
+void uart2_write(int ch);
+void adc_init(void);
+uint32_t adc_read(void);
+int __io_putchar(int ch);
+
+int main(void)
+{
+    uart2_tx_init();
+    adc_init();
+
+    while (1)
+    {
+        uint32_t adc_val = adc_read();
+        printf("ADC Value: %lu\r\n", adc_val);
+        systickDelayMs(1000); // 1 second delay
+    }
+}
+
+// ------------------- SysTick Delay -------------------
+void systickDelayMs(int n)
+{
+    SysTick->LOAD = SYSTICK_LOAD_VAL;
+    SysTick->VAL = 0;
+    SysTick->CTRL = CTRL_CLKSRC | CTRL_ENABLE;
+
+    for (int i = 0; i < n; i++)
+    {
+        while ((SysTick->CTRL & CTRL_COUNTFLAG) == 0) {}
+    }
+    SysTick->CTRL = 0;
+}
+
+// ------------------- UART2 Init -------------------
+void uart2_tx_init(void)
+{
+    RCC->APB1ENR1 |= (1U << 17);  // Enable USART2 clock
+    RCC->AHB2ENR  |= (1U << 0);   // Enable GPIOA clock
+
+    // Set PA2 to AF7 (USART2_TX)
+    GPIOA->MODER &= ~((3U << 4)); // clear bits for PA2
+    GPIOA->MODER |=  (2U << 4);   // alternate function
+    GPIOA->AFR[0] |=  (7U << 8);  // AF7 for PA2
+
+    USART2->BRR = 0x22B;          // 115200 baud at 16 MHz
+    USART2->CR1 = (1U << 3);      // TE enable
+    USART2->CR1 |= (1U << 0);     // USART enable
+}
+
+void uart2_write(int ch)
+{
+    while (!(USART2->ISR & (1U << 7))) {} // wait for TXE
+    USART2->TDR = ch;
+}
+
+int __io_putchar(int ch)
+{
+    uart2_write(ch);
+    return ch;
+}
+
+// ------------------- ADC Init -------------------
+void adc_init(void)
+{
+    RCC->AHB2ENR |= (1U << 13);     // Enable ADC clock
+    ADC1->CR &= ~(1U << 0);         // Disable ADC before config
+    while (ADC1->CR & (1U << 0));   // Wait for it to be disabled
+
+    ADC1->CFGR = 0;                 // Default config
+    ADC1->SQR1 = (5U << 6);         // Channel 5 (PA0 = ADC_IN5)
+    ADC1_COMMON->CCR |= (1U << 16); // Prescaler div 2
+    ADC1->CR |= (1U << 0);          // Enable ADC
+    while (!(ADC1->ISR & (1U << 0))); // Wait for ADC ready
+}
+
+uint32_t adc_read(void)
+{
+    ADC1->CR |= (1U << 2);            // Start conversion
+    while (!(ADC1->ISR & (1U << 2))); // Wait for end of conversion
+    return ADC1->DR;                  // Read value
+}

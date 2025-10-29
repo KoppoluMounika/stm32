@@ -1,0 +1,31 @@
+#include "stm32l4xx.h"
+#include <string.h>
+
+void USART2_DMA_Tx_Init(void)
+{
+    /********** ENABLE CLOCKS **********/
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+    RCC->APB1ENR1 |= RCC_APB1ENR1_USART2EN;
+    RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
+
+    /********** CONFIGURE PA2 (TX) **********/
+    GPIOA->MODER &= ~(3U << (2 * 2));
+    GPIOA->MODER |= (2U << (2 * 2));      // Alternate function mode
+    GPIOA->AFR[0] &= ~(0xF << (4 * 2));
+    GPIOA->AFR[0] |= (7U << (4 * 2));     // AF7 = USART2_TX
+
+    /********** CONFIGURE USART2 **********/
+    USART2->BRR = 80000000 / 115200; // Assuming 80 MHz clock
+    USART2->CR3 |= USART_CR3_DMAT;   // Enable DMA for TX
+    USART2->CR1 = USART_CR1_TE | USART_CR1_UE; // Enable TX and USART
+
+    /********** CONFIGURE DMA1 CHANNEL7 **********/
+    DMA1_Channel7->CCR = 0;
+    DMA1_Channel7->CPAR = (uint32_t)&USART2->TDR;     // Peripheral address
+    DMA1_Channel7->CMAR = (uint32_t)"DMA UART Transmission Successful\r\n"; // Memory address
+    DMA1_Channel7->CNDTR = strlen("DMA UART Transmission Successful\r\n");
+
+    DMA1_Channel7->CCR |= DMA_CCR_MINC;  // Memory increment
+    DMA1_Channel7->CCR |= DMA_CCR_DIR;   // Memory-to-peripheral
+    DMA1_Channel7->CCR |= DMA_CCR_TCIE;  // Transfer complete interrupt
+}

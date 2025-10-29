@@ -1,0 +1,48 @@
+#include "stm32l4xx.h"
+#include "uart.h"
+
+#define GPIOAEN     (1U << 0)
+#define USART2EN    (1U << 17)
+#define SYS_FREQ    4000000
+#define APB1_CLK    SYS_FREQ
+#define BAUDRATE    115200
+
+static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t BaudRate);
+static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate);
+
+void USART2_tx_rx_init(void)
+{
+    RCC->AHB2ENR |= GPIOAEN;
+    GPIOA->MODER &= ~((3U << 4) | (3U << 6));
+    GPIOA->MODER |= ((2U << 4) | (2U << 6));
+
+    GPIOA->AFR[0] |= (7U << 8) | (7U << 12);
+
+    RCC->APB1ENR1 |= USART2EN;
+
+    USART2->CR1 = USART_CR1_TE | USART_CR1_RE;
+    uart_set_baudrate(USART2, APB1_CLK, BAUDRATE);
+    USART2->CR1 |= USART_CR1_UE;
+}
+
+void uart_write(int ch)
+{
+    while (!(USART2->ISR & USART_ISR_TXE));
+    USART2->TDR = ch & 0xFF;
+}
+
+static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t BaudRate)
+{
+    USARTx->BRR = compute_uart_bd(PeriphClk, BaudRate);
+}
+
+static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate)
+{
+    return ((PeriphClk + (BaudRate / 2U)) / BaudRate);
+}
+
+int __io_putchar(int ch)
+{
+    uart_write(ch);
+    return ch;
+}

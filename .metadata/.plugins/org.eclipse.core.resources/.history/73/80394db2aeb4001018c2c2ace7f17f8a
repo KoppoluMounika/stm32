@@ -1,0 +1,85 @@
+#include "uart.h"
+
+#define GPIOAEN     (1U << 0)
+#define USART2EN    (1U << 17)
+
+#define SYS_FREQ        16000000U   // HSI16 frequency
+#define UART_BAUDRATE   115200U
+
+#define CR1_TE      (1U << 3)
+#define CR1_RE      (1U << 2)
+#define CR1_UE      (1U << 0)
+
+#define ISR_TXE     (1U << 7)
+#define ISR_RXNE    (1U << 5)
+
+static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t BaudRate);
+static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate);
+
+int __io_putchar(int ch)
+{
+    uart2_write(ch);
+    return ch;
+}
+
+int __io_getchar(void)
+{
+    return uart2_read();
+}
+
+void USART2_tx_rx_init(void)
+{
+    /*********** Enable HSI16 ***********/
+    RCC->CR |= RCC_CR_HSION;
+    while (!(RCC->CR & RCC_CR_HSIRDY));
+
+    /*********** Enable GPIOA clock ***********/
+    RCC->AHB2ENR |= GPIOAEN;
+
+    /*********** Set PA2 -> AF7 (USART2_TX) ***********/
+    GPIOA->MODER &= ~(3U << 4);
+    GPIOA->MODER |=  (2U << 4);
+    GPIOA->AFR[0] &= ~(0xFU << 8);
+    GPIOA->AFR[0] |=  (7U  << 8);
+
+    /*********** Set PA3 -> AF7 (USART2_RX) ***********/
+    GPIOA->MODER &= ~(3U << 6);
+    GPIOA->MODER |=  (2U << 6);
+    GPIOA->AFR[0] &= ~(0xFU << 12);
+    GPIOA->AFR[0] |=  (7U  << 12);
+
+    /************* Enable USART2 clock *************/
+    RCC->APB1ENR1 |= USART2EN;
+
+    /************* Select HSI16 as USART2 clock *************/
+    RCC->CCIPR &= ~(3U << 2);
+    RCC->CCIPR |=  (2U << 2);   // 10: HSI16 selected
+
+    /************* Configure USART2 *************/
+    uart_set_baudrate(USART2, SYS_FREQ, UART_BAUDRATE);
+    USART2->CR1 = 0;                        // Clear control register
+    USART2->CR1 |= (CR1_TE | CR1_RE);       // Enable TX and RX
+    USART2->CR1 |= CR1_UE;                  // Enable USART
+}
+
+void uart2_write(int ch)
+{
+    while (!(USART2->ISR & ISR_TXE));  // Wait until TX buffer empty
+    USART2->TDR = (ch & 0xFF);
+}
+
+char uart2_read(void)
+{
+    while (!(USART2->ISR & ISR_RXNE));  // Wait until data received
+    return (char)(USART2->RDR & 0xFF);
+}
+
+static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t BaudRate)
+{
+    USARTx->BRR = compute_uart_bd(PeriphClk, BaudRate);
+}
+
+static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate)
+{
+    return ((PeriphClk + (BaudRate / 2U)) / BaudRate);
+}

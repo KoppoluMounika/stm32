@@ -1,49 +1,29 @@
-15:37:27 **** Incremental Build of configuration Debug for project 31_USART2_print_BareMetal ****
+16:05:55 **** Incremental Build of configuration Debug for project 39_SPI_Driver_BareMetal ****
 make -j4 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -DSTM32L476xx -c -I../Inc -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Include" -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc -o "31_USART2_print_BareMetal.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\31_USART2_print_BareMetal\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="31_USART2_print_BareMetal.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 31_USART2_print_BareMetal.elf
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:11:9: warning: implicit declaration of function 'spi1_init'; did you mean 'i2c1_init'? [-Wimplicit-function-declaration]
+   11 |         spi1_init();
+      |         ^~~~~~~~~
+      |         i2c1_init
+../Src/main.c:15:10: warning: implicit declaration of function 'spi1_transmit_receive' [-Wimplicit-function-declaration]
+   15 |          spi1_transmit_receive(tx_buf, rx_buf, sizeof(tx_buf));
+      |          ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "39_SPI_Driver_BareMetal.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\39_SPI_Driver_BareMetal\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="39_SPI_Driver_BareMetal.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 39_SPI_Driver_BareMetal.elf
  
-arm-none-eabi-size  31_USART2_print_BareMetal.elf 
-arm-none-eabi-objdump -h -S 31_USART2_print_BareMetal.elf  > "31_USART2_print_BareMetal.list"
+arm-none-eabi-size  39_SPI_Driver_BareMetal.elf 
+arm-none-eabi-objdump -h -S 39_SPI_Driver_BareMetal.elf  > "39_SPI_Driver_BareMetal.list"
    text	   data	    bss	    dec	    hex	filename
-   3608	     92	   1900	   5600	   15e0	31_USART2_print_BareMetal.elf
+   1108	     12	   1580	   2700	    a8c	39_SPI_Driver_BareMetal.elf
 Finished building: default.size.stdout
  
-Finished building: 31_USART2_print_BareMetal.list
+Finished building: 39_SPI_Driver_BareMetal.list
  
-15:37:33 **** Incremental Build of configuration Debug for project 31_USART2_print_BareMetal ****
+16:07:39 **** Incremental Build of configuration Debug for project 39_SPI_Driver_BareMetal ****
 make -j4 all 
-arm-none-eabi-size  31_USART2_print_BareMetal.elf 
+arm-none-eabi-size  39_SPI_Driver_BareMetal.elf 
    text	   data	    bss	    dec	    hex	filename
-   3608	     92	   1900	   5600	   15e0	31_USART2_print_BareMetal.elf
+   1108	     12	   1580	   2700	    a8c	39_SPI_Driver_BareMetal.elf
 Finished building: default.size.stdout
- 
-15:39:00 **** Incremental Build of configuration Debug for project 31_USART2_print_BareMetal ****
-make -j4 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -DSTM32L476xx -c -I../Inc -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Include" -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc -o "31_USART2_print_BareMetal.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\31_USART2_print_BareMetal\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="31_USART2_print_BareMetal.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 31_USART2_print_BareMetal.elf
- 
-arm-none-eabi-size  31_USART2_print_BareMetal.elf 
-arm-none-eabi-objdump -h -S 31_USART2_print_BareMetal.elf  > "31_USART2_print_BareMetal.list"
-   text	   data	    bss	    dec	    hex	filename
-   3612	     92	   1900	   5604	   15e4	31_USART2_print_BareMetal.elf
-Finished building: default.size.stdout
- 
-Finished building: 31_USART2_print_BareMetal.list
- 
-15:40:11 **** Incremental Build of configuration Debug for project 31_USART2_print_BareMetal ****
-make -j4 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -DSTM32L476xx -c -I../Inc -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Include" -I"C:/Users/VINOD/STM32CubeIDE/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc -o "31_USART2_print_BareMetal.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\31_USART2_print_BareMetal\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="31_USART2_print_BareMetal.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 31_USART2_print_BareMetal.elf
- 
-arm-none-eabi-size  31_USART2_print_BareMetal.elf 
-arm-none-eabi-objdump -h -S 31_USART2_print_BareMetal.elf  > "31_USART2_print_BareMetal.list"
-   text	   data	    bss	    dec	    hex	filename
-   3608	     92	   1900	   5600	   15e0	31_USART2_print_BareMetal.elf
-Finished building: default.size.stdout
- 
-Finished building: 31_USART2_print_BareMetal.list
  

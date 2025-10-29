@@ -1,0 +1,4 @@
+../Src/uart.c:19:6:USART2_GPIO_Init	1
+../Src/uart.c:34:6:USART2_Init	1
+../Src/uart.c:41:6:USART2_Write	2
+../Src/uart.c:47:5:__io_putchar	1

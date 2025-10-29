@@ -1,0 +1,66 @@
+#include "uart.h"
+#include <string.h>
+
+void USART2_tx_rx_init(void)
+{
+    /* Enable clocks */
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+    RCC->APB1ENR1 |= RCC_APB1ENR1_USART2EN;
+
+    /* Set PA2, PA3 to AF7 (USART2) */
+    GPIOA->MODER &= ~((3U << 4) | (3U << 6));
+    GPIOA->MODER |=  ((2U << 4) | (2U << 6));
+    GPIOA->AFR[0] |= (7U << 8) | (7U << 12);
+
+    /* Configure USART2: 9600 8N1 */
+    USART2->BRR = 0x1A1;     // 16MHz/9600
+    USART2->CR1 = USART_CR1_TE | USART_CR1_RE;
+    USART2->CR1 |= USART_CR1_RXNEIE;
+    USART2->CR3 = USART_CR3_DMAT;
+    USART2->CR1 |= USART_CR1_UE;
+
+    NVIC_EnableIRQ(USART2_IRQn);
+}
+
+void dma1_ch7_init(uint32_t src, uint32_t dst, uint32_t len)
+{
+    RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN;
+
+    DMA1_Channel7->CCR &= ~DMA_CCR_EN;       // disable before config
+    DMA1_CSELR->CSELR = (4U << 24);          // Channel 7 → USART2_TX
+    DMA1_Channel7->CPAR = dst;
+    DMA1_Channel7->CMAR = src;
+    DMA1_Channel7->CNDTR = len;
+    DMA1_Channel7->CCR = DMA_CCR_MINC | DMA_CCR_DIR | DMA_CCR_TCIE;
+    NVIC_EnableIRQ(DMA1_Channel7_IRQn);
+}
+
+void uart_dma_enable(void)
+{
+    DMA1_Channel7->CCR |= DMA_CCR_EN;
+}
+
+void uart_send_string(char *data)
+{
+    dma1_ch7_init((uint32_t)data, (uint32_t)&USART2->TDR, strlen(data));
+    uart_dma_enable();
+}
+
+/* ===========================================================
+ * Interrupt Handlers
+ * =========================================================== */
+void USART2_IRQHandler(void)
+{
+    if (USART2->ISR & USART_ISR_RXNE)
+    {
+        char c = USART2->RDR;   // read received byte
+        while (!(USART2->ISR & USART_ISR_TXE));
+        USART2->TDR = c;        // echo back
+    }
+}
+
+void DMA1_Channel7_IRQHandler(void)
+{
+    DMA1->IFCR |= (0xF << 24);        // clear all channel 7 flags
+    DMA1_Channel7->CCR &= ~DMA_CCR_EN;
+}

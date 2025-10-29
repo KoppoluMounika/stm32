@@ -1,0 +1,21 @@
+#include "stm32l4xx.h"
+#include <stdio.h>
+#include "uart.h"
+#include "adc.h"
+
+int val;
+
+int main(void)
+{
+    USART2_tx_rx_init();   // Initialize UART2 for printf
+    pa1_adc1_init();       // Initialize ADC on PA1 (channel 6)
+
+    while(1)
+    {
+        adc_start();               // Start ADC conversion
+        val = adc_read();          // Wait for result and read
+        printf("ADC Value: %d\r\n", val);
+
+        for (volatile int i = 0; i < 100000; i++);  // Small delay
+    }
+}

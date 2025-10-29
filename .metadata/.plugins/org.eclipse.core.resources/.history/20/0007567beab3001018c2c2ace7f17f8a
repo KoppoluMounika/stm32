@@ -1,0 +1,64 @@
+#include "stm32l4xx.h"
+#include "adc.h"
+
+#define ADC1EN  (1U << 13)
+#define GPIOAEN (1U << 0)
+
+void pa1_adc1_init(void)
+{
+    RCC->AHB2ENR |= GPIOAEN;
+    GPIOA->MODER |= (3U << 2);
+    GPIOA->ASCR  |= (1U << 1);
+
+    RCC->AHB2ENR |= ADC1EN;
+
+    ADC1->CR &= ~ADC_CR_DEEPPWD;
+    ADC1->CR |= ADC_CR_ADVREGEN;
+    for (volatile uint32_t i = 0; i < 1000; i++);
+
+    if (ADC1->CR & ADC_CR_ADEN)
+        ADC1->CR |= ADC_CR_ADDIS;
+    while (ADC1->CR & ADC_CR_ADEN);
+
+    ADC1->CR &= ~ADC_CR_ADCALDIF;
+    ADC1->CR |= ADC_CR_ADCAL;
+    while (ADC1->CR & ADC_CR_ADCAL);
+
+    ADC1->CR |= ADC_CR_ADEN;
+    while (!(ADC1->ISR & ADC_ISR_ADRDY));
+
+    ADC1->CFGR &= ~ADC_CFGR_CONT;
+    ADC1->CFGR &= ~ADC_CFGR_RES;
+    ADC1->CFGR &= ~ADC_CFGR_ALIGN;
+
+    ADC1->SQR1 &= ~ADC_SQR1_L;
+    ADC1->SQR1 &= ~ADC_SQR1_SQ1;
+    ADC1->SQR1 |= (6U << 0);
+
+    ADC1->SMPR1 &= ~(7U << 18);
+    ADC1->SMPR1 |=  (2U << 18);
+}
+
+void adc_start(void)
+{
+    ADC1->ISR &= ~ADC_ISR_EOC;
+    ADC1->CR  |= ADC_CR_ADSTART;
+}
+
+uint32_t adc_read(void)
+{
+    while (!(ADC1->ISR & ADC_ISR_EOC));
+    ADC1->ISR &= ~ADC_ISR_EOC;
+    return ADC1->DR;
+}
+
+uint8_t adc_is_ready(void)
+{
+    return (ADC1->ISR & ADC_ISR_ADRDY);
+}
+
+void adc_disable(void)
+{
+    ADC1->CR |= ADC_CR_ADDIS;
+    while (ADC1->CR & ADC_CR_ADEN);
+}

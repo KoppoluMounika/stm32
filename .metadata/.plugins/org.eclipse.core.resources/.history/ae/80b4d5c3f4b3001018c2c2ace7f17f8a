@@ -1,0 +1,62 @@
+#include "stm32l4xx.h"
+#include <stdio.h>
+
+#define GPIOAEN     (1U << 0)
+#define USART2EN    (1U << 17)
+
+#define SYS_FREQ        16000000U
+#define UART_BAUDRATE   115200U
+
+#define CR1_TE      (1U << 3)
+#define CR1_RE      (1U << 2)
+#define CR1_UE      (1U << 0)
+#define ISR_TXE     (1U << 7)
+
+#define SYSTICK_LOAD_VAL    (SYS_FREQ / 1000U)
+#define CTRL_ENABLE         (1U << 0)
+#define CTRL_CLKSRC         (1U << 2)
+#define CTRL_COUNTFLAG      (1U << 16)
+
+static void uart2_tx_init(void);
+static void uart2_write(int ch);
+static void systick_delay_ms(uint32_t delay);
+static void system_clock_config(void);
+
+int __io_putchar(int ch)
+{
+    uart2_write(ch);
+    return ch;
+}
+
+int main(void)
+{
+    system_clock_config();
+    uart2_tx_init();
+
+    while (1)
+    {
+        printf("Mounika\r\n");
+        systick_delay_ms(1000);
+    }
+}
+
+/* ===========================================================
+ * System Clock: use HSI16 = 16 MHz
+ * =========================================================== */
+static void system_clock_config(void)
+{
+    RCC->CR |= RCC_CR_HSION;                // Enable HSI16
+    while (!(RCC->CR & RCC_CR_HSIRDY));     // Wait until ready
+    RCC->CFGR &= ~RCC_CFGR_SW;              // Clear SW bits
+    RCC->CFGR |= RCC_CFGR_SW_HSI;           // Select HSI16
+    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI);
+}
+
+/* ===========================================================
+ * UART2 initialization
+ * =========================================================== */
+static void uart2_tx_init(void)
+{
+    RCC->AHB2ENR |= GPIOAEN;                // Enable GPIOA clock
+    GPIOA->MODER &= ~((3U << 4) | (3U << 6));
+    GPIOA->MODER |=  ((2U << 4) | (2U << 6));   // AF mode

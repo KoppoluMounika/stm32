@@ -1,0 +1,33 @@
+#include "stm32l4xx.h"
+#include "exti.h"
+
+#define GPIOAEN     (1U<<0)
+#define PIN5        (1U<<5)   // LD2 (green LED on PA5)
+
+int main(void)
+{
+    // 1. Enable clock for GPIOA
+    RCC->AHB2ENR |= GPIOAEN;
+
+    // 2. Set PA5 as output
+    GPIOA->MODER &= ~(3U << (5 * 2));  // clear bits
+    GPIOA->MODER |=  (1U << (5 * 2));  // set output mode
+
+    // 3. Initialize EXTI for PC13 (USER button)
+    pc13_exti_init();
+
+    while (1)
+    {
+        // main loop empty — LED will toggle in interrupt
+    }
+}
+
+// Interrupt Service Routine for EXTI line 13
+void EXTI15_10_IRQHandler(void)
+{
+    if (EXTI->PR1 & (1U << 13))   // Check pending flag
+    {
+        EXTI->PR1 |= (1U << 13);  // Clear pending flag
+        GPIOA->ODR ^= PIN5;       // Toggle LED
+    }
+}

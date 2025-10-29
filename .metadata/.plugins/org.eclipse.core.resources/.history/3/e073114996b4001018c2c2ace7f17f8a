@@ -1,0 +1,101 @@
+#include "stm32l4xx.h"
+#include <stdint.h>
+#include <stdio.h>
+
+#define GPIOAEN        (1U << 0)
+#define LED_PIN        (1U << 5)
+
+/* ================== CLOCK CONFIG =================== */
+void Clock_Config(void)
+{
+    // Enable HSI16
+    RCC->CR |= RCC_CR_HSION;
+    while (!(RCC->CR & RCC_CR_HSIRDY));
+
+    // Select HSI16 as SYSCLK
+    RCC->CFGR &= ~RCC_CFGR_SW;
+    RCC->CFGR |= RCC_CFGR_SW_HSI;
+    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI);
+
+    // AHB/APB prescalers = 1
+    RCC->CFGR &= ~(RCC_CFGR_HPRE | RCC_CFGR_PPRE1 | RCC_CFGR_PPRE2);
+}
+
+/* ================== FUNCTION PROTOTYPES =================== */
+void USART2_DMA_Tx_Init(void);
+void dma1_ch7_init(uint32_t src, uint32_t dst, uint32_t len);
+void dma_callback(void);
+
+/* ================== MAIN =================== */
+int main(void)
+{
+    char msg[] = "Hello from STM32 DMA\r\n";
+
+    Clock_Config();
+
+    /* Enable GPIOA clock and set PA5 as output (LED) */
+    RCC->AHB2ENR |= GPIOAEN;
+    GPIOA->MODER &= ~(3U << (2 * 5));
+    GPIOA->MODER |=  (1U << (2 * 5));
+
+    USART2_DMA_Tx_Init();
+    dma1_ch7_init((uint32_t)msg, (uint32_t)&USART2->TDR, sizeof(msg));
+
+    while (1)
+    {
+        // main loop
+    }
+}
+
+/* ================== USART2 + DMA =================== */
+void USART2_DMA_Tx_Init(void)
+{
+    /* Enable clocks */
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+    RCC->APB1ENR1 |= RCC_APB1ENR1_USART2EN;
+    RCC->AHB1ENR  |= RCC_AHB1ENR_DMA1EN;
+
+    /* PA2 → USART2_TX (AF7) */
+    GPIOA->MODER &= ~(3U << (2 * 2));
+    GPIOA->MODER |=  (2U << (2 * 2));     // Alternate function
+    GPIOA->AFRL  &= ~(0xF << (4 * 2));
+    GPIOA->AFRL  |=  (7U << (4 * 2));
+
+    /* USART2 config: 115200 8N1 */
+    USART2->CR1 = 0;
+    USART2->BRR = 0x8B;  // 16 MHz / 115200 ≈ 138 (0x8B)
+    USART2->CR3 |= USART_CR3_DMAT; // Enable DMA for TX
+    USART2->CR1 |= (USART_CR1_TE | USART_CR1_UE);
+}
+
+/* ================== DMA =================== */
+void dma1_ch7_init(uint32_t src, uint32_t dst, uint32_t len)
+{
+    DMA1_Channel7->CCR &= ~DMA_CCR_EN; // disable before config
+
+    DMA1_Channel7->CPAR  = dst;
+    DMA1_Channel7->CMAR  = src;
+    DMA1_Channel7->CNDTR = len;
+
+    DMA1_Channel7->CCR = (DMA_CCR_DIR | DMA_CCR_MINC | DMA_CCR_TCIE);
+    DMA1_CSELR->CSELR = (4U << (4 * 6)); // Map Channel7→USART2_TX
+
+    /* Enable interrupt and start DMA */
+    NVIC_EnableIRQ(DMA1_Channel7_IRQn);
+    DMA1_Channel7->CCR |= DMA_CCR_EN;
+}
+
+/* ================== DMA INTERRUPT HANDLER =================== */
+void DMA1_Channel7_IRQHandler(void)
+{
+    if (DMA1->ISR & DMA_ISR_TCIF7)
+    {
+        DMA1->IFCR |= DMA_IFCR_CTCIF7;  // Clear flag
+        dma_callback();
+    }
+}
+
+void dma_callback(void)
+{
+    GPIOA->ODR ^= LED_PIN; // Toggle LED on transfer complete
+}

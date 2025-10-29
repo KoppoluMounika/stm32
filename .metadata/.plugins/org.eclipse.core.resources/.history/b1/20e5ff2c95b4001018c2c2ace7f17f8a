@@ -1,0 +1,23 @@
+#include "stm32l4xx.h"
+#include "uart.h"
+
+#define GPIOAEN     (1U << 0)
+#define USART2EN    (1U << 17)
+
+void USART2_tx_init(void)
+{
+    // Enable clock for GPIOA and USART2
+    RCC->AHB2ENR |= GPIOAEN;
+    RCC->APB1ENR1 |= USART2EN;
+
+    // PA2 -> TX (AF7)
+    GPIOA->MODER &= ~(3U << 4);
+    GPIOA->MODER |=  (2U << 4);
+    GPIOA->AFR[0]  |=  (7U << 8);
+
+    // Configure USART2
+    USART2->BRR = 8000000 / 115200;   // Baud rate (HSI = 8MHz)
+    USART2->CR3 |= USART_CR3_DMAT;    // Enable DMA for TX
+    USART2->CR1 = USART_CR1_TE;       // Enable transmitter
+    USART2->CR1 |= USART_CR1_UE;      // Enable USART
+}

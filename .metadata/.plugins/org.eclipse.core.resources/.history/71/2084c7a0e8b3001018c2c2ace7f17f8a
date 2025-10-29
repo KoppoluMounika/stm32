@@ -1,0 +1,80 @@
+/*
+ * adc.c
+ * STM32L476 ADC1 (PA1 -> Channel 6)
+ */
+
+#include "stm32l4xx.h"
+#include "adc.h"
+
+#define ADC1EN  (1U << 13)   // Enable ADC1 clock
+
+void pa1_adc1_init(void)
+{
+    /************** Configure PA1 as analog ****************/
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;  // Enable GPIOA clock
+    GPIOA->MODER |= (3U << 2);             // Analog mode (11)
+    // GPIOA->ASCR  |= (1U << 1);          // Optional: connect analog switch (comment if error)
+
+    /************** Enable ADC1 clock ****************/
+    RCC->AHB2ENR |= ADC1EN;
+
+    /************** Exit deep power-down ****************/
+    ADC1->CR &= ~ADC_CR_DEEPPWD;
+
+    /************** Enable ADC voltage regulator ****************/
+    ADC1->CR &= ~ADC_CR_ADVREGEN;
+    ADC1->CR |=  (1U << 28);               // Enable ADC regulator
+    for (volatile uint32_t i = 0; i < 1000; i++); // ~20 µs delay
+
+    /************** Calibrate ADC ****************/
+    if (ADC1->CR & ADC_CR_ADEN)
+    {
+        ADC1->CR |= ADC_CR_ADDIS;          // Disable if enabled
+    }
+    while (ADC1->CR & ADC_CR_ADEN);
+
+    ADC1->CR &= ~ADC_CR_ADCALDIF;          // Single-ended mode
+    ADC1->CR |= ADC_CR_ADCAL;              // Start calibration
+    while (ADC1->CR & ADC_CR_ADCAL);       // Wait for completion
+
+    /************** Enable ADC ****************/
+    ADC1->CR |= ADC_CR_ADEN;
+    while (!(ADC1->ISR & ADC_ISR_ADRDY));  // Wait until ready
+
+    /************** Configure ADC parameters ****************/
+    ADC1->CFGR &= ~ADC_CFGR_CONT;          // Single conversion mode
+    ADC1->CFGR &= ~ADC_CFGR_RES;           // 12-bit resolution
+    ADC1->CFGR &= ~ADC_CFGR_ALIGN;         // Right alignment
+
+    /************** Configure channel 6 (PA1) ****************/
+    ADC1->SQR1 &= ~ADC_SQR1_L;             // One conversion
+    ADC1->SQR1 &= ~ADC_SQR1_SQ1;
+    ADC1->SQR1 |= (6U << 0);               // SQ1 = channel 6
+
+    ADC1->SMPR1 &= ~(7U << 18);            // Clear sampling time bits
+    ADC1->SMPR1 |=  (2U << 18);            // Sampling time = 12.5 cycles
+}
+
+void adc_start(void)
+{
+    ADC1->ISR &= ~ADC_ISR_EOC;             // Clear end of conversion flag
+    ADC1->CR  |= ADC_CR_ADSTART;           // Start conversion
+}
+
+uint32_t adc_read(void)
+{
+    while (!(ADC1->ISR & ADC_ISR_EOC));    // Wait for conversion complete
+    ADC1->ISR &= ~ADC_ISR_EOC;             // Clear flag
+    return ADC1->DR;                       // Return converted value
+}
+
+uint8_t adc_is_ready(void)
+{
+    return (ADC1->ISR & ADC_ISR_ADRDY);
+}
+
+void adc_disable(void)
+{
+    ADC1->CR |= ADC_CR_ADDIS;              // Disable ADC
+    while (ADC1->CR & ADC_CR_ADEN);
+}

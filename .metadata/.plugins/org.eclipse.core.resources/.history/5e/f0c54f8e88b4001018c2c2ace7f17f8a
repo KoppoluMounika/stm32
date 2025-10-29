@@ -1,0 +1,13 @@
+#include "uart.h"
+#include <stdio.h>
+
+int main(void)
+{
+	USART2_tx_init();
+
+    while(1)
+    {
+        printf("UART Test OK\r\n");
+        for (volatile int i = 0; i < 1000000; i++);
+    }
+}

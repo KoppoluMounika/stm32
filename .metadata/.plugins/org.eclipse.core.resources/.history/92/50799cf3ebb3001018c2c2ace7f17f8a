@@ -1,0 +1,49 @@
+#include "adc.h"
+
+#define GPIOAEN   (1U << 0)
+#define ADC1EN    (1U << 13)
+
+void pa1_adc1_init(void)
+{
+    // 1. Enable clock access for GPIOA
+    RCC->AHB2ENR |= GPIOAEN;
+
+    // 2. Set PA1 to analog mode
+    GPIOA->MODER |= (3U << 2);
+    GPIOA->ASCR  |= (1U << 1);   // Connect analog switch to ADC
+
+    // 3. Enable clock access for ADC1
+    RCC->AHB2ENR |= ADC1EN;
+
+    // 4. Disable deep power-down mode
+    ADC1->CR &= ~ADC_CR_DEEPPWD;
+
+    // 5. Enable the internal ADC voltage regulator
+    ADC1->CR |= ADC_CR_ADVREGEN;
+    for (volatile int i = 0; i < 1000; i++); // wait for regulator to stabilize
+
+    // 6. Calibrate ADC
+    ADC1->CR &= ~ADC_CR_ADEN;     // Ensure ADC is disabled
+    ADC1->CR |= ADC_CR_ADCAL;     // Start calibration
+    while (ADC1->CR & ADC_CR_ADCAL); // Wait until complete
+
+    // 7. Enable ADC
+    ADC1->ISR |= ADC_ISR_ADRDY;   // Clear ready flag
+    ADC1->CR |= ADC_CR_ADEN;
+    while (!(ADC1->ISR & ADC_ISR_ADRDY)); // Wait until ADC ready
+
+    // 8. Configure ADC channel (PA1 = ADC channel 6)
+    ADC1->SQR1 &= ~(0x1F << 6);   // Clear L bits
+    ADC1->SQR1 |= (6U << 6);      // Channel 6 as 1st conversion
+}
+
+void adc_start(void)
+{
+    ADC1->CR |= ADC_CR_ADSTART;   // Start conversion
+}
+
+uint32_t adc_read(void)
+{
+    while (!(ADC1->ISR & ADC_ISR_EOC));   // Wait until conversion complete
+    return ADC1->DR;                      // Read converted value
+}

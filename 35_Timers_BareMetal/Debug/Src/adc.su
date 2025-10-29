@@ -1,0 +1,5 @@
+../Src/adc.c:7:6:pa1_adc1_init	16	static
+../Src/adc.c:53:6:adc_start	4	static
+../Src/adc.c:62:10:adc_read	4	static
+../Src/adc.c:75:9:adc_is_ready	4	static
+../Src/adc.c:81:6:adc_disable	4	static

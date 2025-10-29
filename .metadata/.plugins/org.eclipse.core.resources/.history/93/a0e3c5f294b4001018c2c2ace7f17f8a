@@ -1,0 +1,52 @@
+#include "stm32l4xx.h"
+#include <stdint.h>
+#include <stdio.h>
+#include "uart.h"
+#include "dma.h"
+
+#define GPIOAEN     (1U << 0)
+#define LED_PIN     (1U << 5)
+
+void Clock_Config(void);
+void dma_callback(void);
+
+int main(void)
+{
+    char msg[] = "Hello from STM32 DMA\r\n";
+
+    Clock_Config();
+
+    // Enable GPIOA clock and configure LED pin
+    RCC->AHB2ENR |= GPIOAEN;
+    GPIOA->MODER &= ~(3U << 10);
+    GPIOA->MODER |=  (1U << 10);   // PA5 output
+
+    USART2_tx_init();  // UART2 TX only (PA2)
+    dma1_ch7_init((uint32_t)msg, (uint32_t)&USART2->TDR, sizeof(msg));
+
+    while (1)
+    {
+        // Main loop does nothing, DMA + UART handle transmission
+    }
+}
+
+void Clock_Config(void)
+{
+    // Enable HSI16 clock
+    RCC->CR |= RCC_CR_HSION;
+    while (!(RCC->CR & RCC_CR_HSIRDY));
+
+    // Select HSI16 as system clock
+    RCC->CFGR &= ~(RCC_CFGR_SW);
+    RCC->CFGR |=  (RCC_CFGR_SW_HSI);
+    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI);
+
+    // AHB prescaler = 1
+    RCC->CFGR &= ~(RCC_CFGR_HPRE);
+
+    // APB1 prescaler = 1
+    RCC->CFGR &= ~(RCC_CFGR_PPRE1);
+
+    // APB2 prescaler = 1
+    RCC->CFGR &= ~(RCC_CFGR_PPRE2);
+}

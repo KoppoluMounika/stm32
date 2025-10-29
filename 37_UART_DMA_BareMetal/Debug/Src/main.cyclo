@@ -1,0 +1,2 @@
+../Src/main.c:6:5:main	4
+../Src/main.c:23:6:uart2_tx_init	1

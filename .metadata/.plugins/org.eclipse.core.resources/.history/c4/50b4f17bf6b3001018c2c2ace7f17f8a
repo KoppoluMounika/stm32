@@ -1,0 +1,65 @@
+#include "stm32l4xx.h"
+#include <stdio.h>
+
+void uart2_tx_init(void);
+int __io_putchar(int ch);
+void systick_delay_ms(uint32_t delay);
+
+int main(void)
+{
+    uart2_tx_init();
+
+    printf("UART OK\r\n");
+
+    while (1)
+    {
+        printf("Hello from STM32L476RG\r\n");
+        systick_delay_ms(1000);
+    }
+}
+
+void uart2_tx_init(void)
+{
+    /* Enable GPIOA clock */
+    RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+
+    /* Enable USART2 clock */
+    RCC->APB1ENR1 |= RCC_APB1ENR1_USART2EN;
+
+    /* Configure PA2 (TX) and PA3 (RX) as AF7 */
+    GPIOA->MODER &= ~((3U << (2 * 2)) | (3U << (3 * 2)));
+    GPIOA->MODER |=  ((2U << (2 * 2)) | (2U << (3 * 2)));
+    GPIOA->AFR[0]  &= ~((0xF << (4 * 2)) | (0xF << (4 * 3)));
+    GPIOA->AFR[0]  |=  ((7U << (4 * 2)) | (7U << (4 * 3)));
+
+    /* Use HSI16 (16 MHz) as clock */
+    RCC->CR |= RCC_CR_HSION;
+    while (!(RCC->CR & RCC_CR_HSIRDY));
+
+    /* Set baud = 115200 → BRR = 16 000 000 / 115200 = 139 */
+    USART2->BRR = 139;
+
+    USART2->CR1 = USART_CR1_TE | USART_CR1_RE;  // Enable TX & RX
+    USART2->CR1 |= USART_CR1_UE;                // Enable USART
+}
+
+int __io_putchar(int ch)
+{
+    while (!(USART2->ISR & USART_ISR_TXE)); // Wait for TXE
+    USART2->TDR = ch;
+    return ch;
+}
+
+void systick_delay_ms(uint32_t delay)
+{
+    SysTick->LOAD = 16000 - 1; // 1 ms @ 16 MHz
+    SysTick->VAL = 0;
+    SysTick->CTRL = 5;         // Enable, use CPU clock
+
+    for (uint32_t i = 0; i < delay; i++)
+    {
+        while ((SysTick->CTRL & (1 << 16)) == 0);
+    }
+
+    SysTick->CTRL = 0;
+}

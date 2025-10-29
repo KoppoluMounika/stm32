@@ -1,0 +1,26 @@
+#include "stm32l4xx.h"
+#include "uart.h"
+#include "i2c.h"
+#include <stdio.h>
+
+int main(void)
+{
+    USART2_tx_rx_init();
+    i2c1_init();
+
+    printf("I2C Test with ESP32\r\n");
+
+    uint8_t data[2] = {0x11, 0x22};
+    uint8_t rx[1];
+
+    while (1)
+    {
+        i2c1_master_send(0x68, data, 2);
+        printf("Sent: 0x11 0x22\r\n");
+
+        i2c1_master_receive(0x68, rx, 1);
+        printf("Received: 0x%02X\r\n", rx[0]);
+
+        for (volatile int i = 0; i < 2000000; i++);
+    }
+}

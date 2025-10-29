@@ -1,0 +1,47 @@
+#include "stm32l4xx.h"
+#include <stdio.h>
+
+#define GPIOAEN     (1U << 0)
+#define USART2EN    (1U << 17)
+#define SYS_FREQ    4000000
+#define APB1_CLK    SYS_FREQ
+#define UART_BAUDRATE 115200
+
+static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t periph_clk, uint32_t baudrate);
+static uint16_t compute_uart_bd(uint32_t periph_clk, uint32_t baudrate);
+
+void USART2_tx_rx_init(void)
+{
+    /* Enable clock for GPIOA and USART2 */
+    RCC->AHB2ENR |= GPIOAEN;
+    RCC->APB1ENR1 |= USART2EN;
+
+    /* Set PA2, PA3 to Alternate Function mode (AF7) */
+    GPIOA->MODER &= ~((3U << 4) | (3U << 6));  // clear mode
+    GPIOA->MODER |=  ((2U << 4) | (2U << 6));  // set to AF mode
+    GPIOA->AFRL  &= ~((0xF << 8) | (0xF << 12));
+    GPIOA->AFRL  |=  (7U << 8) | (7U << 12);
+
+    /* Configure USART2 */
+    uart_set_baudrate(USART2, APB1_CLK, UART_BAUDRATE);
+    USART2->CR1 = (1U << 3) | (1U << 2); // enable TX, RX
+    USART2->CR1 |= (1U << 0);            // enable USART
+}
+
+
+static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t periph_clk, uint32_t baudrate)
+{
+    USARTx->BRR = compute_uart_bd(periph_clk, baudrate);
+}
+
+static uint16_t compute_uart_bd(uint32_t periph_clk, uint32_t baudrate)
+{
+    return (periph_clk + (baudrate / 2U)) / baudrate;
+}
+
+int __io_putchar(int ch)
+{
+    while (!(USART2->ISR & (1U << 7))) {} // Wait for TXE
+    USART2->TDR = (ch & 0xFF);
+    return ch;
+}

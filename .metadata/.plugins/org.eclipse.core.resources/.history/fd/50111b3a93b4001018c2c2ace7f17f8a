@@ -1,0 +1,7 @@
+#include "uart.h"
+#include <stdio.h>
+int main(void){
+  USART2_tx_rx_init();
+  char msg[]="Hello DMA UART\r\n";
+  while(1){ uart_dma_write(msg, sizeof(msg)-1); for(volatile int i=0;i<1000000;i++); }
+}

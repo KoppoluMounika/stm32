@@ -1,0 +1,31 @@
+#include "stm32l4xx.h"
+#include <stdio.h>
+
+void Clock_Config(void);
+void USART2_GPIO_Init(void);
+void USART2_Init(void);
+
+int main(void)
+{
+    Clock_Config();
+    USART2_GPIO_Init();
+    USART2_Init();
+
+    while (1)
+    {
+        printf("Hello from STM32 UART DMA Test!\r\n");
+        for (volatile int i = 0; i < 1000000; i++);
+    }
+}
+
+void Clock_Config(void)
+{
+    // Enable HSI16 (16 MHz)
+    RCC->CR |= RCC_CR_HSION;
+    while (!(RCC->CR & RCC_CR_HSIRDY));
+
+    // Select HSI as system clock
+    RCC->CFGR &= ~RCC_CFGR_SW;
+    RCC->CFGR |= RCC_CFGR_SW_HSI;
+    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI);
+}

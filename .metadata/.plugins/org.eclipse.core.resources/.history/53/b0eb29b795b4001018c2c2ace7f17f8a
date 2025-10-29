@@ -1,0 +1,49 @@
+#include "stm32l4xx.h"
+#include "uart.h"
+#include <string.h>
+
+#define BUFFER_SIZE 32
+
+char message[] = "DMA UART Transmission Successful\r\n";
+
+void Clock_Config(void);
+
+int main(void)
+{
+    Clock_Config();
+    USART2_DMA_Tx_Init();
+
+    // Enable DMA channel
+    DMA1_Channel7->CCR |= DMA_CCR_EN;
+
+    while (1)
+    {
+        // Wait until DMA transfer complete
+        while (!(DMA1->ISR & DMA_ISR_TCIF7));
+        DMA1->IFCR |= DMA_IFCR_CTCIF7; // clear flag
+
+        // Restart DMA transfer
+        DMA1_Channel7->CCR &= ~DMA_CCR_EN;
+        DMA1_Channel7->CNDTR = strlen(message);
+        DMA1_Channel7->CCR |= DMA_CCR_EN;
+
+        for (volatile int i = 0; i < 1000000; i++); // delay
+    }
+}
+
+void Clock_Config(void)
+{
+    // Enable HSI and wait for ready
+    RCC->CR |= RCC_CR_HSION;
+    while (!(RCC->CR & RCC_CR_HSIRDY));
+
+    // Set HSI as system clock
+    RCC->CFGR &= ~RCC_CFGR_SW;
+    RCC->CFGR |= RCC_CFGR_SW_HSI;
+    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI);
+
+    // No prescalers
+    RCC->CFGR &= ~RCC_CFGR_HPRE;
+    RCC->CFGR &= ~RCC_CFGR_PPRE1;
+    RCC->CFGR &= ~RCC_CFGR_PPRE2;
+}

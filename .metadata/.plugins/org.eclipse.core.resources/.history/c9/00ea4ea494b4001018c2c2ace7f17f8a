@@ -1,0 +1,14 @@
+#include "uart.h"
+
+int main(void)
+{
+    USART2_tx_rx_init();  // use uart.c version
+    while (1)
+    {
+        uart2_write('H');
+        uart2_write('i');
+        uart2_write('\r');
+        uart2_write('\n');
+        for (volatile int i = 0; i < 1000000; i++);
+    }
+}

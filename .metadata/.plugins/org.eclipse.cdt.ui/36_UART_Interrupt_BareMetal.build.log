@@ -1,0 +1,10 @@
+11:46:42 **** Incremental Build of configuration Debug for project 36_UART_Interrupt_BareMetal ****
+make -j4 all 
+arm-none-eabi-size  36_UART_Interrupt_BareMetal.elf 
+   text	   data	    bss	    dec	    hex	filename
+    924	      0	   1568	   2492	    9bc	36_UART_Interrupt_BareMetal.elf
+Finished building: default.size.stdout
+ 
+
+11:46:43 Build Finished. 0 errors, 0 warnings. (took 293ms)
+

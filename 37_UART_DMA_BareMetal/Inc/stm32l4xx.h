@@ -1,0 +1,134 @@
+#ifndef STM32L4XX_H
+#define STM32L4XX_H
+
+#include <stdint.h>
+
+/* ================= BASE ADDRESSES ================= */
+#define PERIPH_BASE         0x40000000UL
+#define AHB1PERIPH_BASE     (PERIPH_BASE + 0x00020000UL)
+#define AHB2PERIPH_BASE     (PERIPH_BASE + 0x08000000UL)
+#define APB1PERIPH_BASE     (PERIPH_BASE + 0x00000000UL)
+#define APB2PERIPH_BASE     (PERIPH_BASE + 0x00010000UL)
+
+/* ================= RCC ================= */
+#define RCC_BASE            (AHB1PERIPH_BASE + 0x1000UL)
+#define RCC                 ((RCC_TypeDef *) RCC_BASE)
+
+typedef struct {
+    volatile uint32_t CR;
+    volatile uint32_t ICSCR;
+    volatile uint32_t CFGR;
+    volatile uint32_t PLLCFGR;
+    volatile uint32_t PLLSAI1CFGR;
+    volatile uint32_t CIER;
+    volatile uint32_t CIFR;
+    volatile uint32_t CICR;
+    volatile uint32_t AHB1RSTR;
+    volatile uint32_t AHB2RSTR;
+    volatile uint32_t AHB3RSTR;
+    uint32_t RESERVED0;
+    volatile uint32_t APB1RSTR1;
+    volatile uint32_t APB1RSTR2;
+    volatile uint32_t APB2RSTR;
+    uint32_t RESERVED1;
+    volatile uint32_t AHB1ENR;
+    volatile uint32_t AHB2ENR;
+    volatile uint32_t AHB3ENR;
+    uint32_t RESERVED2;
+    volatile uint32_t APB1ENR1;
+    volatile uint32_t APB1ENR2;
+    volatile uint32_t APB2ENR;
+} RCC_TypeDef;
+
+/* RCC Bits */
+#define RCC_CR_HSION           (1U << 8)
+#define RCC_CR_HSIRDY          (1U << 10)
+#define RCC_CFGR_SW            (3U << 0)
+#define RCC_CFGR_SW_HSI        (0U << 0)
+#define RCC_CFGR_SWS           (3U << 2)
+#define RCC_CFGR_SWS_HSI       (0U << 2)
+#define RCC_AHB2ENR_GPIOAEN    (1U << 0)
+#define RCC_AHB1ENR_DMA1EN     (1U << 0)
+#define RCC_APB1ENR1_USART2EN  (1U << 17)
+
+/* ================= GPIO ================= */
+#define GPIOA_BASE         (AHB2PERIPH_BASE + 0x0000UL)
+#define GPIOA              ((GPIO_TypeDef *) GPIOA_BASE)
+
+typedef struct {
+    volatile uint32_t MODER;
+    volatile uint32_t OTYPER;
+    volatile uint32_t OSPEEDR;
+    volatile uint32_t PUPDR;
+    volatile uint32_t IDR;
+    volatile uint32_t ODR;
+    volatile uint32_t BSRR;
+    volatile uint32_t LCKR;
+    volatile uint32_t AFRL;
+    volatile uint32_t AFRH;
+} GPIO_TypeDef;
+
+/* ================= USART2 ================= */
+#define USART2_BASE        (APB1PERIPH_BASE + 0x4400UL)
+#define USART2             ((USART_TypeDef *) USART2_BASE)
+
+typedef struct {
+    volatile uint32_t CR1;
+    volatile uint32_t CR2;
+    volatile uint32_t CR3;
+    volatile uint32_t BRR;
+    volatile uint32_t GTPR;
+    volatile uint32_t RTOR;
+    volatile uint32_t RQR;
+    volatile uint32_t ISR;
+    volatile uint32_t ICR;
+    volatile uint32_t RDR;
+    volatile uint32_t TDR;
+} USART_TypeDef;
+
+/* USART bits */
+#define USART_CR1_UE       (1U << 0)
+#define USART_CR1_TE       (1U << 3)
+#define USART_CR3_DMAT     (1U << 7)
+
+/* ================= DMA ================= */
+#define DMA1_BASE          (AHB1PERIPH_BASE + 0x0000UL)
+#define DMA1               ((DMA_TypeDef *) DMA1_BASE)
+#define DMA1_Channel7_BASE (DMA1_BASE + 0x0058UL)
+#define DMA1_Channel7      ((DMA_Channel_TypeDef *) DMA1_Channel7_BASE)
+#define DMA1_CSELR_BASE    (DMA1_BASE + 0x00A8UL)
+#define DMA1_CSELR         ((DMA_CSELR_TypeDef *) DMA1_CSELR_BASE)
+
+typedef struct {
+    volatile uint32_t ISR;
+    volatile uint32_t IFCR;
+} DMA_TypeDef;
+
+typedef struct {
+    volatile uint32_t CCR;
+    volatile uint32_t CNDTR;
+    volatile uint32_t CPAR;
+    volatile uint32_t CMAR;
+} DMA_Channel_TypeDef;
+
+typedef struct {
+    volatile uint32_t CSELR;
+} DMA_CSELR_TypeDef;
+
+/* DMA bits */
+#define DMA_CCR_EN         (1U << 0)
+#define DMA_CCR_TCIE       (1U << 1)
+#define DMA_CCR_DIR        (1U << 4)
+#define DMA_CCR_MINC       (1U << 7)
+#define DMA_ISR_TCIF7      (1U << 25)
+#define DMA_IFCR_CTCIF7    (1U << 25)
+
+/* ================= NVIC ================= */
+#define DMA1_Channel7_IRQn 17
+static inline void NVIC_EnableIRQ(uint32_t IRQn)
+{
+    volatile uint32_t *ISER = (uint32_t *)0xE000E100;
+    ISER[IRQn >> 5] = (1U << (IRQn & 0x1F));
+}
+
+#endif

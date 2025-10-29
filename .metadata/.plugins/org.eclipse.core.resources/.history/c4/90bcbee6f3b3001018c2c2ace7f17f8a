@@ -1,0 +1,29 @@
+#include "stm32l4xx.h"
+#include "uart.h"
+#include "systick.h"
+
+void system_clock_config(void)
+{
+    // Enable HSI16
+    RCC->CR |= RCC_CR_HSION;
+    while (!(RCC->CR & RCC_CR_HSIRDY));
+
+    // Select HSI16 as system clock
+    RCC->CFGR &= ~RCC_CFGR_SW;
+    RCC->CFGR |=  RCC_CFGR_SW_HSI;
+
+    // Wait until HSI16 is used
+    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI);
+}
+
+int main(void)
+{
+    system_clock_config();   // 👈 Add this line
+    USART2_tx_rx_init();
+
+    while(1)
+    {
+        printf("Mounika\r\n");
+        systickDelayMs(1000);
+    }
+}
