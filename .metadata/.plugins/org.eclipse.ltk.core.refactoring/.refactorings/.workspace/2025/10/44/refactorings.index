@@ -47,3 +47,6 @@
 1761742302867	Delete resource '42_Task_Deletion_RTOS/led_switch.ioc'
 1761742310289	Delete resource '42_Task_Deletion_RTOS/led_switch Debug.launch'
 1761742314754	Delete resource '42_Task_Deletion_RTOS/task_delete.launch'
+1761744104944	Delete resource '43_Task_Delay_RTOS/04_Task_Delay.ioc'
+1761744111315	Delete resource '43_Task_Delay_RTOS/task_delay.launch'
+1761744712095	Delete resource '44_Task_NotificationValue_RTOS/task_notify Debug.launch'

@@ -1,0 +1,10 @@
+19:03:06 **** Incremental Build of configuration Debug for project 44_Task_NotificationValue_RTOS ****
+make -j4 all 
+arm-none-eabi-size  44_Task_NotificationValue_RTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  21860	     96	   5992	  27948	   6d2c	44_Task_NotificationValue_RTOS.elf
+Finished building: default.size.stdout
+ 
+
+19:03:07 Build Finished. 0 errors, 0 warnings. (took 502ms)
+

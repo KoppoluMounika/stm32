@@ -1,0 +1,10 @@
+18:53:51 **** Incremental Build of configuration Debug for project 43_Task_Delay_RTOS ****
+make -j4 all 
+arm-none-eabi-size  43_Task_Delay_RTOS.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20940	     96	   5984	  27020	   698c	43_Task_Delay_RTOS.elf
+Finished building: default.size.stdout
+ 
+
+18:53:52 Build Finished. 0 errors, 0 warnings. (took 453ms)
+
