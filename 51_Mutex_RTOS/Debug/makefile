@@ -38,34 +38,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := 51_Mutex_RTOS
+BUILD_ARTIFACT_NAME := 12_mutex
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-51_Mutex_RTOS.elf \
+12_mutex.elf \
 
 MAP_FILES += \
-51_Mutex_RTOS.map \
+12_mutex.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-51_Mutex_RTOS.list \
+12_mutex.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: 51_Mutex_RTOS.elf secondary-outputs
+main-build: 12_mutex.elf secondary-outputs
 
 # Tool invocations
-51_Mutex_RTOS.elf 51_Mutex_RTOS.map: $(OBJS) $(USER_OBJS) C:\Users\KOPPOLU\ MOUNIKA\OneDrive\ -\ BITSILICA\ Pvt.\ Ltd\Desktop\stm32\21_Mutex_RTOS\STM32L476RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "51_Mutex_RTOS.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\KOPPOLU MOUNIKA\OneDrive - BITSILICA Pvt. Ltd\Desktop\stm32\21_Mutex_RTOS\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="51_Mutex_RTOS.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+12_mutex.elf 12_mutex.map: $(OBJS) $(USER_OBJS) C:\Bitsilica\Stm32_Projects\51_Mutex_RTOS\STM32L476RGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "12_mutex.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Bitsilica\Stm32_Projects\51_Mutex_RTOS\STM32L476RGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="12_mutex.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -74,14 +74,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-51_Mutex_RTOS.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "51_Mutex_RTOS.list"
+12_mutex.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "12_mutex.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) 51_Mutex_RTOS.elf 51_Mutex_RTOS.list 51_Mutex_RTOS.map default.size.stdout
+	-$(RM) 12_mutex.elf 12_mutex.list 12_mutex.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
