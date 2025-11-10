@@ -1,0 +1,8 @@
+../Core/Src/main.c:16:13:delay_ms	2
+../Core/Src/main.c:18:13:uart2_write	2
+../Core/Src/main.c:19:13:uart2_print	2
+../Core/Src/main.c:20:13:uart2_init	1
+../Core/Src/main.c:31:17:rand32	1
+../Core/Src/main.c:33:12:read_temperature	1
+../Core/Src/main.c:37:6:bme280_display_temperature	1
+../Core/Src/main.c:44:5:main	2

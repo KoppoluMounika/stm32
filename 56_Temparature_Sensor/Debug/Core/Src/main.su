@@ -1,0 +1,8 @@
+../Core/Src/main.c:16:13:delay_ms	24	static,ignoring_inline_asm
+../Core/Src/main.c:18:13:uart2_write	16	static
+../Core/Src/main.c:19:13:uart2_print	16	static
+../Core/Src/main.c:20:13:uart2_init	4	static
+../Core/Src/main.c:31:17:rand32	4	static
+../Core/Src/main.c:33:12:read_temperature	8	static
+../Core/Src/main.c:37:6:bme280_display_temperature	48	static
+../Core/Src/main.c:44:5:main	16	static

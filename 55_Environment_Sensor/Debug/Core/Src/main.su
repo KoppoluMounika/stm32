@@ -1,0 +1,10 @@
+../Core/Src/main.c:32:13:delay_ms	24	static,ignoring_inline_asm
+../Core/Src/main.c:34:13:uart2_init	4	static
+../Core/Src/main.c:43:13:uart2_write	16	static
+../Core/Src/main.c:44:13:uart2_print	16	static
+../Core/Src/main.c:46:13:i2c1_init	4	static
+../Core/Src/main.c:60:13:i2c1_write_reg	16	static
+../Core/Src/main.c:71:16:i2c1_read_reg	16	static
+../Core/Src/main.c:83:13:bme280_init	16	static
+../Core/Src/main.c:90:13:bme280_read_data	128	static
+../Core/Src/main.c:109:5:main	8	static
